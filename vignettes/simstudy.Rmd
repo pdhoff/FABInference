@@ -1,0 +1,65 @@
+---
+title: "Demo and simulation study of FAB p-values"
+author: "Peter Hoff"
+date: "`r substring(Sys.time(),1,10)`"
+---
+
+
+
+```{r}
+library(FABInference)
+```
+
+
+```{r}
+#### sim study  
+n<-100 ; p<-25 ; nsim<-10
+
+par(mfcol=c(3,2),mar=c(3,3,1,1),mgp=c(1.75,.75,0))
+for(model in c("Gaussian","Poisson")){ 
+for(scenario in 1:3){ 
+
+  FP<-NULL ; UP<-NULL
+  for(s in 1:nsim){
+    set.seed(s) 
+
+    ## FAB coefficients and variables
+    v<-rnorm(p)
+    if(scenario==1){ beta<-rep(0,p) } 
+    if(scenario==2){ beta<-rnorm(p) } 
+    if(scenario==3){ beta<-(2 - 2*v + rnorm(p))/3 } 
+    X<-matrix(rnorm(n*p),n,p)/8
+ 
+    ## control coefficients and variables  
+    alpha1<-.5 ; alpha2<- -.5
+    w1<-rnorm(n)/8
+    w2<-rnorm(n)/8
+
+    ## simulate data and fit model
+    lp<-1 + alpha1*w1 + alpha2*w2 + X%*%beta 
+
+    if(model=="Gaussian"){
+      y<-rnorm(n,lp) 
+      fit0<-lm(y~w1+w2+X)
+      fit1<-lmFAB(y~w1+w2,X,~v,silent=TRUE)
+    }
+
+    if(model=="Poisson"){ 
+      y<-rpois(n,exp(lp))
+      fit0<-glm(y~w1+w2+X,family=poisson)
+      fit1<-glmFAB(y~w1+w2,X,~v,family=poisson,silent=TRUE)
+    }
+
+    ## output
+    FP<-rbind(FP,fit1$FABpv)
+    UP<-rbind(UP,summary(fit0)$coef[fit1$FABvars,4] )  
+    }
+
+  plot(c(0,1),c(0,1),type="n",xlab="pval",ylab="")
+  abline(0,1,col="gray") 
+  lines(sort(UP),seq(0,1,length=s*p),col="pink")
+  lines(sort(FP),seq(0,1,length=s*p),col="blue")
+  legend(.6,.4,lty=c(1,1),col=c("pink","blue"),legend=c("pU","pF")) 
+ 
+}}
+```

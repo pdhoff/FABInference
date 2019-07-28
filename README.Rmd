@@ -1,0 +1,45 @@
+## FABInference
+
+#### FAB p-values and confidence interval construction
+
+
+
+[Package website](https://pdhoff.github.io/FABInference/)
+
+
+#### About
+In multiparameter problems, information sharing across parameters 
+can be used to improve the power of statistical hypothesis tests, thereby
+providing smaller p-values and narrower confidence intervals, on average across parameters. 
+The `FABInference` package provides information sharing in linear and 
+generalized linear regression models using a syntax similar to the 
+built-in R functions `lm` and `glm`. 
+
+
+#### Installation
+
+
+```{r,eval=FALSE}
+# Current version on GitHub
+devtools::install_github("pdhoff/FABInference") 
+```
+
+
+#### Documentation and citation
+
+
+"Smaller p-values via indirect information". P.D. Hoff.  arXiv:1907.XXXX. 
+
+"Exact adaptive confidence intervals for linear regression coefficients". 
+P.D. Hoff and C. Yu. Electron. J. Stat., 13(1):94–119, 2019. 
+
+"Exact adaptive confidence intervals for small areas". K. Burris and P.D. Hoff. Journal of Survey Statistics and Methodology. 
+
+"Adaptive multigroup confidence intervals with constant coverage". C. Yu and P.D. Hoff. Biometrika, 105(2):319–335, 2018. 
+
+
+#### Some examples
+
+* [Demo and simulation study](articles/simulation.html)
+
+
