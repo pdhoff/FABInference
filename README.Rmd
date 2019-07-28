@@ -1,7 +1,6 @@
 ## FABInference
 
-#### FAB p-values and confidence interval construction
-
+#### Construction of FAB p-values and confidence interval 
 
 
 [Package website](https://pdhoff.github.io/FABInference/)
@@ -40,6 +39,6 @@ P.D. Hoff and C. Yu. Electron. J. Stat., 13(1):94–119, 2019.
 
 #### Some examples
 
-* [Demo and simulation study](articles/simulation.html)
+* [Demo and simulation study](articles/simstudy.html)
 
 
