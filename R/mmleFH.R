@@ -6,11 +6,11 @@
 #' @param y direct data follwing normal model \eqn{y\sim N(\theta,V\sigma^2)} 
 #' @param X linking model predictors \eqn{ \theta\sim N(X\beta,\tau^2 I)} 
 #' @param V covariance matrix to scale
-#' @param pSS prior sum of squares for estimate of \eqn{\sigma^2} 
-#' @param pdf prior degrees of freedom for estimate of \eqn{\sigma^2} 
+#' @param ss0 prior sum of squares for estimate of \eqn{\sigma^2} 
+#' @param df0 prior degrees of freedom for estimate of \eqn{\sigma^2} 
 #' 
 #' @export
-mmleFH<-function(y,X,V,pSS=0,pdf=0){
+mmleFH<-function(y,X,V,ss0=0,df0=0){
 
   ## mml estimation under the model 
   ## $y \sim N(\theta,V \sigma^2)$ 
@@ -18,9 +18,9 @@ mmleFH<-function(y,X,V,pSS=0,pdf=0){
   ## where $V$, $X$ are known. 
   ## Additional stability can be added by 
   ## including some information on \sigma^2 
-  ## so that pSS/pdf \approx \sigma^2. 
+  ## so that ss0/df0 \approx \sigma^2. 
 
-  ## Also, could stabilize with pSS=pdf*sum(y^2)/sum(diag(V)), 
+  ## Also, could stabilize with ss0=df0*sum(y^2)/sum(diag(V)), 
   ## which is centering around the null model of theta=0. 
 
   eV<-eigen(V)
@@ -37,7 +37,7 @@ mmleFH<-function(y,X,V,pSS=0,pdf=0){
 
     RSS<-sum(lm(yd~ -1+Xd)$res^2)
     ldet<-2*sum(log(G))
-    RSS - ldet  + pdf*log(s2) + pSS/s2
+    RSS - ldet  + df0*log(s2) + ss0/s2
   }
 
   t2s2<-exp(optim(c(0,0),obj)$par) ; t2<-t2s2[1] ; s2<-t2s2[2]

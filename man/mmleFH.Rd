@@ -4,7 +4,7 @@
 \alias{mmleFH}
 \title{Marginal MLEs for the Fay-Herriot model}
 \usage{
-mmleFH(y, X, V, pSS = 0, pdf = 0)
+mmleFH(y, X, V, ss0 = 0, df0 = 0)
 }
 \arguments{
 \item{y}{direct data follwing normal model \eqn{y\sim N(\theta,V\sigma^2)}}
@@ -13,9 +13,9 @@ mmleFH(y, X, V, pSS = 0, pdf = 0)
 
 \item{V}{covariance matrix to scale}
 
-\item{pSS}{prior sum of squares for estimate of \eqn{\sigma^2}}
+\item{ss0}{prior sum of squares for estimate of \eqn{\sigma^2}}
 
-\item{pdf}{prior degrees of freedom for estimate of \eqn{\sigma^2}}
+\item{df0}{prior degrees of freedom for estimate of \eqn{\sigma^2}}
 }
 \description{
 Marginal MLEs for the Fay-Herriot random effects model where 

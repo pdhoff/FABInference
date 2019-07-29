@@ -5,7 +5,7 @@
 \title{FAB inference for linear models}
 \usage{
 lmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
-  silent = FALSE)
+  rssSplit = TRUE, silent = FALSE)
 }
 \arguments{
 \item{cformula}{formua for the control variables}
@@ -15,6 +15,8 @@ lmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
 \item{lformula}{formula for the lining model (just specify right-hand side)}
 
 \item{alpha}{error rate for CIs (1-alpha CIs will be constructed)}
+
+\item{rssSplit}{use some residual degrees of freedom to help fit linking model (TRUE/FALSE)}
 
 \item{silent}{show progress (TRUE) or not (FALSE)}
 }

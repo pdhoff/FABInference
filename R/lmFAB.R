@@ -7,6 +7,7 @@
 #' @param FABvars  matrix of regressors for which to make FAB p-values and CIs
 #' @param lformula formula for the lining model (just specify right-hand side)
 #' @param alpha error rate for CIs (1-alpha CIs will be constructed) 
+#' @param rssSplit use some residual degrees of freedom to help fit linking model (TRUE/FALSE) 
 #' @param silent show progress (TRUE) or not (FALSE) 
 #' 
 #' @examples
@@ -38,7 +39,7 @@
 #' summary(fit) # look at p-value column 
 #'
 #' @export 
-lmFAB<-function(cformula, FABvars, lformula=NULL, alpha=.05,silent=FALSE ){
+lmFAB<-function(cformula, FABvars, lformula=NULL, alpha=.05, rssSplit=TRUE, silent=FALSE ){
 
   ## ToDo: Allow for RSS splitting to stabilize linking model 
   ## estimate of s2 
@@ -62,8 +63,18 @@ lmFAB<-function(cformula, FABvars, lformula=NULL, alpha=.05,silent=FALSE ){
   if(!silent){ cat("\n") ; cat("Fitting sampling model: - ") }
   fit<-lm(y~.+0,as.data.frame(cbind(W,X))) 
   betaOLS<-fit$coef[q+1:p]
-  df<-length(y) - (p+q)
-  s2<-sum(fit$res^2)/df
+
+  if(rssSplit==FALSE){ df<-length(y) - (p+q) ; s2<-sum(fit$res^2)/df }
+  if(rssSplit!=FALSE){  
+    if(0<rssSplit & rssSplit<1){ 
+      df0<-floor(rssSplit*fit$df) 
+    } else { df0=max(1,floor(fit$df/10))  }  
+    rss<-rssSplit(fit,df0) 
+    df<-fit$df-df0 
+    s2<-rss[2]/df 
+    ss0<-rss[1] 
+  } 
+  
   S<-solve(crossprod(cbind(W,X)))[q+1:p,q+1:p]
   SED<-sqrt(s2*diag(S))
   TSTAT<-betaOLS/SED
@@ -84,7 +95,7 @@ lmFAB<-function(cformula, FABvars, lformula=NULL, alpha=.05,silent=FALSE ){
     if(!silent){cat("\r","Fitting linking models:",pbar)} 
 
     G<-MASS::Null(S[,j])
-    fitFH<-mmleFH(t(G)%*%betaOLS, t(G)%*%V, t(G)%*%S%*%G  )
+    fitFH<-mmleFH(t(G)%*%betaOLS, t(G)%*%V, t(G)%*%S%*%G, ss0, df0)
     RC<-rbind(RC,fitFH$beta) ; T2<-c(T2,fitFH$t2) ; S2<-c(S2,fitFH$s2)  
   }
   if(!silent){cat("\n") }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Marginal MLEs for the Fay-Herriot model — mmleFH • FABInference</title>
+<title>Residual sum of squares split — rssSplit • FABInference</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,10 +32,9 @@
 
 
 
-<meta property="og:title" content="Marginal MLEs for the Fay-Herriot model — mmleFH" />
+<meta property="og:title" content="Residual sum of squares split — rssSplit" />
 
-<meta property="og:description" content="Marginal MLEs for the Fay-Herriot random effects model where 
-the covariance matrix for the sampling model is known to scale." />
+<meta property="og:description" content="Split residual sum of squares from normal linear regression" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,42 +110,33 @@ the covariance matrix for the sampling model is known to scale." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Marginal MLEs for the Fay-Herriot model</h1>
+    <h1>Residual sum of squares split</h1>
     
-    <div class="hidden name"><code>mmleFH.Rd</code></div>
+    <div class="hidden name"><code>rssSplit.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Marginal MLEs for the Fay-Herriot random effects model where 
-the covariance matrix for the sampling model is known to scale.</p>
+    <p>Split residual sum of squares from normal linear regression</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>mmleFH</span>(<span class='no'>y</span>, <span class='no'>X</span>, <span class='no'>V</span>, <span class='kw'>ss0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>df0</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>rssSplit</span>(<span class='no'>fit</span>, <span class='kw'>df0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='no'>fit</span>$<span class='no'>df</span>/<span class='fl'>10</span>)), <span class='kw'>seed</span> <span class='kw'>=</span> -<span class='fl'>71407</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>y</th>
-      <td><p>direct data follwing normal model \(y\sim N(\theta,V\sigma^2)\)</p></td>
-    </tr>
-    <tr>
-      <th>X</th>
-      <td><p>linking model predictors \( \theta\sim N(X\beta,\tau^2 I)\)</p></td>
-    </tr>
-    <tr>
-      <th>V</th>
-      <td><p>covariance matrix to scale</p></td>
-    </tr>
-    <tr>
-      <th>ss0</th>
-      <td><p>prior sum of squares for estimate of \(\sigma^2\)</p></td>
+      <th>fit</th>
+      <td><p>lm object</p></td>
     </tr>
     <tr>
       <th>df0</th>
-      <td><p>prior degrees of freedom for estimate of \(\sigma^2\)</p></td>
+      <td><p>degrees of freedom for the smaller of the two residual sums of squares</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>random seed for constructing the basis vectors of the split</p></td>
     </tr>
     </table>
     
