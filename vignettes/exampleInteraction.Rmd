@@ -1,0 +1,227 @@
+---
+title: FAB $p$-values for group-level slopes in ANCOVA models
+author: Peter Hoff
+date: 2019-07-23
+--- 
+
+
+----
+
+
+## Summary 
+Adaptive FAB $p$-values are constructed  for evaluating 
+significance of a slope parameter  for each level of a categorical variable. 
+Specifically, we evaluate the significance of the relationship between 
+student-level scores on a standardized exam and student-level SES scores
+for each school in the 2002 ELS study. 
+Information is shared across schools using an exchangeable (i.i.d.) 
+linking model for the school-level effects. This document serves as the replication code for the example in Section 4.2 of the article
+["Smaller $p$-values via indirect information"](https://arxiv.org/abs/XXXX) (Hoff 2019).
+
+
+
+## Data
+The data for this example are from the 2002 Educational Longitudinal Survey, data from which can
+be obained at https://nces.ed.gov/surveys/els2002/. A subset of the data needed to
+replicate the example is available on my website and can be loaded using the following command:
+```{r}
+load(url("http://www2.stat.duke.edu/~pdh10/Datasets/els.RData"))
+```
+
+Now take a look at all the variables:
+```{r}
+els[1:10,]
+```
+
+
+First we do an overall $F$-test to evaluate if there is 
+heterogeneity in the relationship between `rscore` and `ses` 
+after controlling for the other variables. 
+```{r,cache=TRUE}
+fit1<-lm(rscore ~ as.factor(school) + ses +  as.factor(school)*ses +
+                 female + nateng + pcgrad, data=els)
+fit0<-lm(rscore ~ as.factor(school) + ses +  
+                 female + nateng + pcgrad, data=els)
+
+anova(fit0,fit1)
+```
+The $p$-value is tiny, suggesting that schools do indeed vary in terms 
+of the relationship between these two variables. Therefore, it is not appropriate to just test for an overall effect of SES on reading score and then use that to claim that the effect is present for each school separately. 
+
+
+Consider the linear regression model
+\[
+ Y_{i,j} =  \gamma_j + \alpha^\top w_{i,j} +  \beta_j x_{i,j} + \sigma \epsilon_{i,j} 
+\]
+where $Y_{i,j}$ is the reading score of the $i$th student in school $j$
+and $x_{i,j}$ is the SES score of that student. The standard $p$-value 
+for evaluating $H_j:\beta_j=0$ is obtained from the distribution of the
+OLS estimate of $\beta_j$. Here, we obtain the OLS estimates and standard 
+$p$-values. Then with the linking model $\beta_1,\ldots, \beta_p \sim$ i.i.d.
+ $N(\mu,\tau^2)$, we construct FAB $p$-values. 
+
+
+First we gather the variables: 
+```{r} 
+y<-els$rscore 
+g<-els$school 
+x<-els$ses
+W<-as.matrix(els[,c("female","nateng","pcgrad") ] )   
+
+ug<-sort(unique(g))
+G<-diag(length(ug))[match(g,ug),]
+GX<-sweep(G,1,x,"*")
+```
+
+* `y` is an $n$-vector of the outcome for each student; 
+* `G` is an $n\times p$ binary matrix indicating which of the $p$ schools
+      each student is in; 
+* `W` is an $n\times q$ matrix of other student-level explanatory variables; 
+* `GX` is an  $n\times p$  matrix obtained by multiplying each row of $G$ by the corresponding students SES score. This is the interaction variable. 
+
+
+The basic strategy is as follows: 
+* Obtain the OLS estimates for the `GX` variables in a linear regression model that includes `G`, `W` and `GX` as predictors.  The OLS estimates are 
+our direct data 
+for each $\beta_j, j=1,\ldots, p$. 
+* For each $\hat\beta_j$, obtain estimates of the 
+ mean $\mu$ and variance $\tau^2$ 
+in the linking model $\beta_1,\ldots, \beta_p \sim$ i.i.d. $N(\mu, \tau^2)$, 
+using data that is uncorrelated with $\hat\beta_j$.  
+* Use the parameter estimates to construct the FAB $p$-value for group $j$. 
+
+
+I have written the following functions to do all this. Here is the main function:
+
+```{r}
+pFABreg<-function(y,X,W=NULL){
+
+  ## FAB p-values for the regression coefficients associated with $X$ 
+  ## assuming an i.i.d. normal prior. The matrix W can include other 
+  ## regressors. 
+
+  ## Future work: Allow for information splitting for estimation 
+  ## of s2, the error variance. 
+
+  p<-ncol(X)
+
+  XW<-cbind(X,W)
+  fit<-lm(y~ -1+XW)
+  betaOLS<-fit$coef[1:p]
+  df<-nrow(XW)-ncol(XW)
+  s2<-sum(fit$res^2)/df
+
+  V<-solve(crossprod(XW))[1:p,1:p]
+  v<-diag(V)
+
+  PSI<-NULL
+  for(j in 1:p){
+    G<-MASS::Null(V[,j])
+    PSI<-rbind(PSI,mmleEXG(t(G)%*%betaOLS, t(G)%*%rep(1,p), t(G)%*%V%*%G  ) )
+    if(j%%10==0){ cat(j/p,"\n") }
+  }
+
+  TSTAT<-betaOLS/sqrt(v*s2)
+
+  pU<-2*pt(-abs(TSTAT),df)
+  pF<-1-abs( pt(TSTAT+2*PSI[,1]*sqrt(v*PSI[,3])/PSI[,2],df)  - pt(-TSTAT,df) )
+  RES<-cbind(betaOLS,v,s2,TSTAT,df,PSI,pU,pF)
+  colnames(RES)<-c("betaOLS","v unscaled","s2res","t-stat","df","mu","t2","s2mlik","pU","pF")
+  RES
+}
+```
+
+
+Here is a helper function that computes the MMLE of the parameters in the linking model: 
+```{r} 
+mmleEXG<-function(y,x,V){
+
+  ## mml estimation under the model 
+  ## $y \sim N(\theta,V \sigma^2)$ 
+  ## $\theta \sim N( x \mu,\tau^2 I)$
+  ## where $V$ is known 
+
+  eV<-eigen(V)
+  E<-eV$vec
+  L<-eV$val
+
+  obj<-function(lt2s2){
+    t2<-exp(lt2s2[1])
+    s2<-exp(lt2s2[2])
+    G<-1/(t2+L*s2)
+
+    iVy<-E%*%( G*(t(E)%*%y) )
+    iVx<-E%*%( G*(t(E)%*%x) )
+
+    RSS<-sum(iVy*y) - sum(iVx*y)^2/sum(iVx*x)
+    ldet<-sum(log(G))
+
+    RSS - ldet
+  }
+
+  t2s2<-exp(optim(c(0,0),obj)$par) ; t2<-t2s2[1] ; s2<-t2s2[2]
+  G<-1/(t2+L*s2)
+  iVy<-E%*%( G*(t(E)%*%y) )
+  iVx<-E%*%( G*(t(E)%*%x) )
+  mu<-sum(iVx*y)/sum(iVx*x)
+  c(mu,t2,s2)
+}
+```
+
+Ok, now we compute all the FAB $p$-values. This will take a while. 
+```{r,cache=TRUE}
+pVALS<-pFABreg(y,GX,cbind(G,W))
+```
+
+
+Save some results:
+```{r}
+resultsInteraction<-list( BOLS=pVALS[,"betaOLS"],  
+                 N=c(table(g)), 
+                 VUNS=pVALS[,"v unscaled"], 
+                 S2U=pVALS[,"s2res"], 
+                 T=pVALS[,"t-stat"],
+                 DF=pVALS[,"df"],  
+                 pU=pVALS[,"pU"], 
+                 ETHETA=pVALS[,"mu"],
+                 TAU=sqrt(pVALS[,"t2"]), 
+                 SIGMA=sqrt(pVALS[,"s2mlik"]), 
+                 pF=pVALS[,"pF"])  
+
+save(resultsInteraction,file="resultsInteraction.RData")
+```
+
+
+
+Summary of some results:
+```{r}
+par(mfrow=c(1,3),mar=c(3,3,1,1),mgp=c(1.75,.75,0))
+
+
+plot(  sqrt(1/(resultsInteraction$VUNS*resultsInteraction$S2U)),  resultsInteraction$BOLS,
+    xlab="1/(direct estimate standard error)", ylab="direct estimate"  )
+abline(h=mean(resultsInteraction$ETHETA))
+ise<-seq(.05,.65,length=100)
+lines( ise,mean(resultsInteraction$BOLS) + qnorm(.975)/ise,col="gray" )
+lines( ise,mean(resultsInteraction$BOLS) - qnorm(.975)/ise,col="gray" )
+
+pU<-resultsInteraction$pU
+pF<-resultsInteraction$pF
+
+sigU<-sum(pU<.05)
+sigF<-sum(pF<.05)
+
+plot(pU,pF,xlab="UMPU p-value",ylab="FAB p-value")
+abline(0,1,col="gray")
+
+plot(sort(pU),type="l",xlim=c(0,350),ylim=c(0,.06),lwd=2,col="pink",
+          xlab="rank",ylab="p-value")
+lines(sort(pF),col="lightblue",lwd=2)
+abline(h=.05,col="gray")
+legend(5,.045,lwd=c(2,2),col=c("pink","lightblue"),legend=c("UMPU","FAB"),
+       bty="n")
+```
+
+
+
+

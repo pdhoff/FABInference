@@ -41,9 +41,6 @@
 #' @export 
 lmFAB<-function(cformula, FABvars, lformula=NULL, alpha=.05, rssSplit=TRUE, silent=FALSE ){
 
-  ## ToDo: Allow for RSS splitting to stabilize linking model 
-  ## estimate of s2 
-
   ## sampling model
   mframe<-model.frame(cformula)
   y<-model.frame(cformula)[[1]] 
@@ -64,7 +61,11 @@ lmFAB<-function(cformula, FABvars, lformula=NULL, alpha=.05, rssSplit=TRUE, sile
   fit<-lm(y~.+0,as.data.frame(cbind(W,X))) 
   betaOLS<-fit$coef[q+1:p]
 
-  if(rssSplit==FALSE){ df<-length(y) - (p+q) ; s2<-sum(fit$res^2)/df }
+  if(rssSplit==FALSE){ 
+    df<-length(y) - (p+q) ; s2<-sum(fit$res^2)/df 
+    df0<-0 ; ss0<-0
+  }
+
   if(rssSplit!=FALSE){  
     if(0<rssSplit & rssSplit<1){ 
       df0<-floor(rssSplit*fit$df) 

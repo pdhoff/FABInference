@@ -11,7 +11,7 @@ library(FABInference)
 ```
 
 
-```{r}
+```{r,cache=TRUE}
 #### sim study  
 n<-100 ; p<-25 ; nsim<-100
 

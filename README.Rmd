@@ -41,4 +41,13 @@ P.D. Hoff and C. Yu. Electron. J. Stat., 13(1):94–119, 2019.
 
 * [Demo and simulation study](articles/simstudy.html)
 
+* [Small area estimation](articles/exampleFHmodel.html) Replication file for Hoff(2019) 
+
+* [Hidden Markov model](articles/exampleHMM.html) Replication file for Hoff(2019) 
+
+* [Linear model interactions](articles/exampleInteraction.html) Replication file for Hoff(2019)        
+
+* [Logistic regression](articles/exampleLogistic.html) Replication file for Hoff(2019)        
+
+
 

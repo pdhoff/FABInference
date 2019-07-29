@@ -85,7 +85,8 @@ summary.lmFAB<-function (object, correlation = FALSE, symbolic.cor = FALSE,
     ## pvals 
     pU<-2 * pt(abs(tval), rdf,lower.tail = FALSE)
     pF<-z$FABpv
-    pF<-c(pU[1:(length(pU)-length(pF))],pF) 
+    nU<-length(pU)-length(pF) 
+    pF<-c(pU[seq(1,nU,length=nU)],pF) 
 
     ans$coefficients <- cbind(Estimate = est, `Std. Error` = se,
         `t value` = tval, `Pr(>|t+bfab|)` =pF)
@@ -212,8 +213,9 @@ summary.glmFAB<-function(object, dispersion = NULL, correlation = FALSE, symboli
 
     ## substitute in p-vals 
     pW<-coef.table[,4]
-    pF<-object$FABpv 
-    pF<-c(pW[1:(length(pW)-length(pF))],pF)  
+    pF<-object$FABpv  
+    nW<-length(pW)-length(pF) 
+    pF<-c(pW[seq(1,nU,length=nU)],pF)      
     coef.table[,4]<-pF 
 
     keep <- match(c("call", "terms", "family", "deviance", "aic",
