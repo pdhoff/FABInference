@@ -15,6 +15,19 @@ generalized linear regression models using a syntax similar to the
 built-in R functions `lm` and `glm`. 
 
 
+#### Theoretical details
+In the simplest case of a normally distributed estimator $\hat \theta$ of
+$\theta$ such that $\hat\theta\sim N(\theta,\sigma^2)$, a standard $p$-value
+and confidence interval are based on the test statistic $|\hat\theta|$. 
+A FAB $p$-value and confidence interval is  based on the statistic
+$|\hat\theta+a|$, where $a$ is determined from indirect information about 
+the sign and magnitude of $\theta$. The functional form of the FAB $p$-value
+is extremely simple: 
+\[
+ p_{FAB}(\hat\theta,a) = 1- | \Phi(\hat\theta+2a) - \Phi(-\hat\theta) |, 
+\]
+where $\Phi$ is the standard normal CDF. The FAB confidence interval is a bit more complicated. In multiparameter settings, the optimal choice for $a$ for one parameter may be estimated from data on the other parameters, using a linking model that relates the parameters to each other. Importantly, the FAB confidence intervals and $p$-values have correct frequentist error rates, even if the linking model is incorrect. 
+
 #### Installation
 
 
@@ -41,13 +54,16 @@ P.D. Hoff and C. Yu. Electron. J. Stat., 13(1):94–119, 2019.
 
 * [Demo and simulation study](articles/simstudy.html)
 
-* [Small area estimation](articles/exampleFHmodel.html) Replication file for Hoff(2019) 
+* [Small area estimation](articles/exampleFHmodel.html) Replication file for Hoff(2019)
 
-* [Hidden Markov model](articles/exampleHMM.html) Replication file for Hoff(2019) 
+* [Hidden Markov model](articles/exampleHMM.html) Replication file for Hoff(2019)
 
-* [Linear model interactions](articles/exampleInteraction.html) Replication file for Hoff(2019)        
+* [Linear model interactions](articles/exampleInteraction.html) Replication file for Hoff(2019)
 
-* [Logistic regression](articles/exampleLogistic.html) Replication file for Hoff(2019)        
+* [Logistic regression](articles/exampleLogistic.html) Replication file for Hoff(2019)
+
+
+
 
 
 

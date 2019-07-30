@@ -215,7 +215,7 @@ summary.glmFAB<-function(object, dispersion = NULL, correlation = FALSE, symboli
     pW<-coef.table[,4]
     pF<-object$FABpv  
     nW<-length(pW)-length(pF) 
-    pF<-c(pW[seq(1,nU,length=nU)],pF)      
+    pF<-c(pW[seq(1,nW,length=nW)],pF)      
     coef.table[,4]<-pF 
 
     keep <- match(c("call", "terms", "family", "deviance", "aic",

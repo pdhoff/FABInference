@@ -11,7 +11,46 @@ library(FABInference)
 ```
 
 
-```{r,cache=TRUE}
+
+
+This vignette presents a small simulation study comparing
+FAB $p$-values to UMPU $p$-values (for linear models) and to
+Wald $p$-values (for generalized linear models).
+There are $2\times 3$  scenarios considered - two "models"
+(normal linear regression and Poisson regression), and three 
+regimes for the true regression coefficients:
+
+1. all coefficients are zero; 
+
+2. coefficients are distributed symmetrically around zero; 
+
+3. coefficients are somewhat linearly related to an observed explanatory variable. 
+
+
+What do we expect to happen, and why? 
+
+1. When all coefficients are zero, then the FAB and UMPU $p$-values fr the linear model are exactly uniformly distributed. For the glm, they will be approximately (asymptotically) uniformly distributed. 
+
+2. The worst-case scenario for the FAB $p$-values is the case where the 
+true coefficients are centered around zero, and there is no external information 
+distinguishing the positive from the negative coefficients. This is because there 
+is no information for the adaptive FAB procedure to learn from. However, 
+if the linking model includes a distribution centered around zero, then we expect the FAB procedure to adapt to this, resulting in $p$-values that closely resemble the UMPU and Wald $p$-values. 
+
+3. If there coefficients are not centered around zero or  are related to an observed 
+variable, then the adaptive FAB procedure can learn the center or the relationship, and then use more powerful test statistics to improve performance, on average across parameters. 
+
+
+Below is code to implement these scenarios. Note that for pedagogic reasons  
+an extra couple of 
+observed "control" variables, `w1` and `w2` are included in the regression model, 
+but are not part of the linking model.
+Below the code is a summary plot of the results, giving the CDFs of the different 
+kinds of $p$-values. The results are as expected. 
+
+
+
+```{r,simstudy,cache=TRUE}
 #### sim study  
 n<-100 ; p<-25 ; nsim<-100
 
