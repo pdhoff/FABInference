@@ -1,6 +1,6 @@
 ## FABInference
 
-#### Construction of FAB p-values and confidence interval 
+#### Construction of FAB p-values and confidence intervals
 
 
 [Package website](https://pdhoff.github.io/FABInference/)
