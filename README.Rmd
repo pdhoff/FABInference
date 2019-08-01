@@ -15,6 +15,44 @@ generalized linear regression models using a syntax similar to the
 built-in R functions `lm` and `glm`. 
 
 
+#### Usage
+Suppose you want to get FAB $p$-values for the predictors 
+$x_{i,1},\ldots, x_{i,p}$ in the linear model 
+\[
+ y_i = \alpha_0 + \alpha_1 w_{i,1} + \alpha_2 w_{i,2} + 
+       \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i, 
+\]
+where $w_{i,1}$ and $w_{i,2}$ (and potentially other $w_{i,j}$'s) 
+are additional control variables you'd like to have in the model. 
+Then you need to 
+
+1. column-bind the $x$-variables into an $n\times p$ matrix `X`, 
+   e.g. `X<-cbind(x1,x2,x3)`; 
+
+2. run the command `fit<-lmFAB(y~w1+w2,X)`.  
+
+The output is similar to the output of the `lm` command, so you can 
+type `summary(fit)` to see the FAB $p$-values. The FAB $p$-values and 
+confidence intervals are stored in `fit$FABpv` and `fit$FABci`. 
+
+If $\beta_1,\ldots, \beta_p$ correspond to $p$ objects about which you 
+have additional covariate information (say attributes $\{(v_{j,1},v_{j,2}), 
+j =1,\ldots, p\}$ you might be interested in fitting the model 
+`fit<-lmFAB(y~w1+w2,X,~v1+v2)`, where `v1` and `v2` are $p$-dimensional 
+vectors giving the attributes associated with $\beta_1,\ldots, \beta_p$. 
+The additional term specifies a *linking model* for $\beta_1,\ldots, \beta_p$. 
+Importantly, the linking model doesn't have to be correct in any way for the 
+FAB $p$-values of confidence intervals to be valid. However, the better the linking model, the smaller the $p$-values and the narrower the intervals. 
+
+FAB inference for generalized linear models can be obtained similarly 
+using the command `glmFAB`. In this case, the $p$-values and confidence 
+intervals are valid asymptotically (just like the standard 
+$p$-values and intervals). Fitting a normal linear regression 
+with `glmFAB` is much faster than using `lmFAB` because the former uses 
+an asymptotic approximation. 
+
+
+
 #### Theoretical details
 In the simplest case of a normally distributed estimator $\hat \theta$ of
 $\theta$ such that $\hat\theta\sim N(\theta,\sigma^2)$, a standard $p$-value

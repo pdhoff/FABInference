@@ -106,6 +106,21 @@
 <a href="#about" class="anchor"></a>About</h4>
 <p>In multiparameter problems, information sharing across parameters can be used to improve the power of statistical hypothesis tests, thereby providing smaller p-values and narrower confidence intervals, on average across parameters. The <code>FABInference</code> package provides information sharing in linear and generalized linear regression models using a syntax similar to the built-in R functions <code>lm</code> and <code>glm</code>.</p>
 </div>
+<div id="usage" class="section level4">
+<h4 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h4>
+<p>Suppose you want to get FAB <span class="math inline">\(p\)</span>-values for the predictors <span class="math inline">\(x_{i,1},\ldots, x_{i,p}\)</span> in the linear model <span class="math display">\[
+ y_i = \alpha_0 + \alpha_1 w_{i,1} + \alpha_2 w_{i,2} + 
+       \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i, 
+\]</span> where <span class="math inline">\(w_{i,1}\)</span> and <span class="math inline">\(w_{i,2}\)</span> (and potentially other <span class="math inline">\(w_{i,j}\)</span>’s) are additional control variables you’d like to have in the model. Then you need to</p>
+<ol style="list-style-type: decimal">
+<li><p>column-bind the <span class="math inline">\(x\)</span>-variables into an <span class="math inline">\(n\times p\)</span> matrix <code>X</code>, e.g. <code>X&lt;-cbind(x1,x2,x3)</code>;</p></li>
+<li><p>run the command <code>fit&lt;-lmFAB(y~w1+w2,X)</code>.</p></li>
+</ol>
+<p>The output is similar to the output of the <code>lm</code> command, so you can type <code><a href="https://rdrr.io/r/base/summary.html">summary(fit)</a></code> to see the FAB <span class="math inline">\(p\)</span>-values. The FAB <span class="math inline">\(p\)</span>-values and confidence intervals are stored in <code>fit$FABpv</code> and <code>fit$FABci</code>.</p>
+<p>If <span class="math inline">\(\beta_1,\ldots, \beta_p\)</span> correspond to <span class="math inline">\(p\)</span> objects about which you have additional covariate information (say attributes <span class="math inline">\(\{(v_{j,1},v_{j,2}), j =1,\ldots, p\}\)</span> you might be interested in fitting the model <code>fit&lt;-lmFAB(y~w1+w2,X,~v1+v2)</code>, where <code>v1</code> and <code>v2</code> are <span class="math inline">\(p\)</span>-dimensional vectors giving the attributes associated with <span class="math inline">\(\beta_1,\ldots, \beta_p\)</span>. The additional term specifies a <em>linking model</em> for <span class="math inline">\(\beta_1,\ldots, \beta_p\)</span>. Importantly, the linking model doesn’t have to be correct in any way for the FAB <span class="math inline">\(p\)</span>-values of confidence intervals to be valid. However, the better the linking model, the smaller the <span class="math inline">\(p\)</span>-values and the narrower the intervals.</p>
+<p>FAB inference for generalized linear models can be obtained similarly using the command <code>glmFAB</code>. In this case, the <span class="math inline">\(p\)</span>-values and confidence intervals are valid asymptotically (just like the standard <span class="math inline">\(p\)</span>-values and intervals). Fitting a normal linear regression with <code>glmFAB</code> is much faster than using <code>lmFAB</code> because the former uses an asymptotic approximation.</p>
+</div>
 <div id="theoretical-details" class="section level4">
 <h4 class="hasAnchor">
 <a href="#theoretical-details" class="anchor"></a>Theoretical details</h4>
