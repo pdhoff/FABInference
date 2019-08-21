@@ -31,7 +31,7 @@ pUMPU<-function(y,sigma){
 ## -- BH FDR control procedure
 rejectBH<-function(pvals,fdr=.1){
   pc<-cbind(sort(pvals),fdr*(1:length(pvals))/length(pvals))
-  nd<-min(which( pc[,1]>pc[,2] ) )-1
+  nd<-max( c(0, suppressWarnings(which(pc[,1]<pc[,2])) ) )
   order(pvals)[seq(1,nd,length=nd)]
 }
 ```
@@ -158,10 +158,20 @@ save(EFAB,XFAB,UMPU,pXNULL,file="resultsHMM.RData")
 
 Plot results:
 ```{r}
+## FDP
+Ufdp<-mean(  UMPU[,2]/(pmax(UMPU[,4]+UMPU[,2],1) ))
+Ffdp<-mean(  EFAB[,2]/(pmax(EFAB[,4]+EFAB[,2],1) ))
+Xfdp<-mean(  XFAB[,2]/(pmax(XFAB[,4]+XFAB[,2],1) ))
+
 ## Proportion of discoveries made - power - prob disc given true disc
 EPOW<-EFAB[,4]/pmax(1,EFAB[,3]+EFAB[,4])
 XPOW<-XFAB[,4]/pmax(1,XFAB[,3]+XFAB[,4])
 UPOW<-UMPU[,4]/pmax(1,UMPU[,3]+UMPU[,4])
+
+round(mean(UPOW),3)
+round(mean(EPOW),3)
+
+mean(EPOW)/mean(UPOW)
 
 par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,.75,0))
 plot(UPOW,EPOW,xlab="UMPU proportion true effects discovered",
