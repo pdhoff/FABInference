@@ -3,7 +3,7 @@ Title: FAB p-values and confidence intervals
 Version: 0.1
 Description: Frequentist assisted by Bayes (FAB) p-values and confidence 
     interval construction. See 'Smaller p-values via indirect information'
-    (Hoff <arXiv:1907.XXXX>), 
+    (Hoff <arXiv:1907.12589>), 
     'Adaptive multigroup confidence intervals with constant
     coverage' (Yu and Hoff <arXiv:1612.08287>) and
     'Exact adaptive confidence intervals for linear regression coefficients'

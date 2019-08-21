@@ -11,7 +11,7 @@ This is a simulation study in which
 adaptive FAB $p$-values are constructed using a Gaussian hidden Markov model 
 as a linking model. A binary hidden Markov model is the "true" linking model. 
 This document serves as the replication code for the example in Section 3.4 of the article
-["Smaller $p$-values via indirect information"](https://arxiv.org/abs/XXXX) (Hoff 2019).
+["Smaller $p$-values via indirect information"](https://arxiv.org/abs/1907.12589) (Hoff 2019).
 
 
 Here are some $p$-value functions:

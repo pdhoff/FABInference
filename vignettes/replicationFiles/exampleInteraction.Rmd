@@ -16,7 +16,7 @@ student-level scores on a standardized exam and student-level SES scores
 for each school in the 2002 ELS study. 
 Information is shared across schools using an exchangeable (i.i.d.) 
 linking model for the school-level effects. This document serves as the replication code for the example in Section 4.2 of the article
-["Smaller $p$-values via indirect information"](https://arxiv.org/abs/XXXX) (Hoff 2019).
+["Smaller $p$-values via indirect information"](https://arxiv.org/abs/1907.12589) (Hoff 2019).
 
 
 

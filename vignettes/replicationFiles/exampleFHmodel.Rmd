@@ -8,7 +8,7 @@ date: 2019-07-23
 
 ## Summary 
 Adaptive FAB $p$-values are constructed  for evaluating the mean test scores of 10th graders in a population of high schools. Information is shared across schools using a Fay-Herriot random effects model. This document serves as the replication code for the example in Section 3.2 of the article
-["Smaller $p$-values via indirect information"](https://arxiv.org/abs/XXXX) (Hoff 2019).
+["Smaller $p$-values via indirect information"](https://arxiv.org/abs/1907.12589) (Hoff 2019).
 
 
 
