@@ -156,7 +156,7 @@ save(EFAB,XFAB,UMPU,pXNULL,file="resultsHMM.RData")
 ```
 
 
-Plot results:
+Results:
 ```{r}
 ## FDP
 Ufdp<-mean(  UMPU[,2]/(pmax(UMPU[,4]+UMPU[,2],1) ))
@@ -168,11 +168,16 @@ EPOW<-EFAB[,4]/pmax(1,EFAB[,3]+EFAB[,4])
 XPOW<-XFAB[,4]/pmax(1,XFAB[,3]+XFAB[,4])
 UPOW<-UMPU[,4]/pmax(1,UMPU[,3]+UMPU[,4])
 
-round(mean(UPOW),3)
-round(mean(EPOW),3)
+round(mean(UPOW),3)  
 
-mean(EPOW)/mean(UPOW)
+round(mean(EPOW),3)  
 
+mean(EPOW)/mean(UPOW)  
+
+```
+
+Plots:
+```{r}
 par(mfrow=c(1,2),mar=c(3,3,1,1),mgp=c(1.75,.75,0))
 plot(UPOW,EPOW,xlab="UMPU proportion true effects discovered",
                ylab="FAB proportion true effects discovered")
