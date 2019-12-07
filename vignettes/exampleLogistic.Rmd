@@ -1,5 +1,5 @@
 ---
-title: Asymptotically uniform FAB $p$-values 
+title: Asymptotically uniform FAB p-values 
 author: Peter Hoff
 date: 2019-07-23
 ---
@@ -63,7 +63,8 @@ theta0<-rep(c(3,0),times=c(p/2,p/2))
 nvals<-c(200,400,800,1600) 
 nsim<-5000
 
-PVALS<-array(dim=c(nsim,p,2,length(nvals))) 
+histW0<-histF0<-histW1<-histF1<-list() 
+sigTN<-sigNN<-NULL
 
 par(mfrow=c(4,3),mar=c(3,3,1,1),mgp=c(1.75,.75,0)) 
 
@@ -92,73 +93,72 @@ for(k in 1:length(nvals)){
     z<-theta/sqrt(s2)
     pW<-1-abs( pnorm(z)-pnorm(-z))
     pF<-1-abs( pnorm(z+2*sqrt(s2)*MUT2[,1]/MUT2[,2]) - pnorm(-z) ) 
-    PF<-rbind(PF,pF) ; PW<-rbind(PW,pW)  
+    PF<-rbind(PF,pF) ; PW<-rbind(PW,pW)   
   } 
 
-  PVALS[,,1,k]<-PW 
-  PVALS[,,2,k]<-PF 
-
+  histW0[[k]]<-hist(PW[,theta0==0],plot=FALSE) 
+  histW1[[k]]<-hist(PW[,theta0!=0],plot=FALSE)  
+  histF0[[k]]<-hist(PF[,theta0==0],plot=FALSE) 
+  histF1[[k]]<-hist(PF[,theta0!=0],plot=FALSE)   
 
   hist(PF[,theta0!=0],col=rgb(.3,.3,.3,.5),prob=TRUE) 
   hist(PW[,theta0!=0],col=rgb(.8,.2,.5,.5),add=TRUE,prob=TRUE) 
 
   hist(PF[,theta0==0]) 
   hist(PW[,theta0==0]) 
- 
+
+ pW<-mean(PW[,theta0==0]<.05) ; pF<-mean(PF[,theta0==0]<.05) 
+ sigTN<-cbind(sigTN,c(pW,pF))  
+
+ pW<-mean(PW[,theta0!=0]<.05) ; pF<-mean(PF[,theta0!=0]<.05) 
+ sigNN<-cbind(sigNN,c(pW,pF))  
+
 }
+
 ```
 
 Here we save the results:
 ```{r}
-dimnames(PVALS)[[3]]<-c("pW","pF") 
-dimnames(PVALS)[[4]]<-nvals  
-resultsLogistic <-PVALS
-save(resultsLogistic,file="resultsLogistic.RData") 
+colnames(sigTN)<-colnames(sigNN)<-nvals
+rownames(sigTN)<-rownames(sigNN)<-c("pW","pF")
+names(histW0)<-names(histW1)<-nvals
+names(histF0)<-names(histF1)<-nvals  
+save(sigTN,sigNN,histW0,histW1,histF0,histF1,file="resultsLogistic.RData") 
 ```
 
-The results are in $30\times 5000 \times 2 \times 4$ array. 
-The first dimension corresponds to the regression coefficients, 
-the first 15 of which were $3/\sqrt{n}$ and the last 15 of which were zero. 
-The second dimension corresponds to the simulation number (1 to 5000). 
-The third dimension is the $p$-value type, and the fourth dimension 
-is the sample size. 
+Here are the fractions of true-null $p$-values below 0.05:
+```{r}
+sigTN
+```
+
+Here are the fractions of non-null $p$-values below 0.05:
+```{r}
+sigNN
+```
 
 
 Here are the plots from the article:
 ```{r}
-PVALS<-resultsLogistic
-p<-dim(PVALS)[2]
-theta0<-rep(c(3,0),times=c(p/2,p/2))
-
 par(mfrow=c(4,3),mar=c(2.75,3.2,0,1),mgp=c(1.75,.75,0))
-for(k in 1:dim(PVALS)[4]){
+for(k in 1:4){
 
-  PW<-PVALS[,,1,k]
-  PF<-PVALS[,,2,k]
+  xlab<-1*(k==4) + 1
 
-  xlab<-1*(k==dim(PVALS)[4]) + 1
-
-  hist(PF[,theta0!=0],col=rgb(.1,.4,.6,.5),prob=TRUE,main="",
+  plot(histF1[[k]],col=rgb(.1,.4,.6,.5),main="",freq=FALSE,
        xlab=c("","non-null p-values")[xlab],ylab="",xaxt=c("n","s")[xlab] )
-  hist(PW[,theta0!=0],col=rgb(.9,.3,.3,.5),prob=TRUE,add=TRUE)
-  mtext(paste0("n=",dimnames(PVALS)[[4]][k]),2,line=2,cex=.85)
+  plot(histW1[[k]],col=rgb(.9,.3,.3,.5),add=TRUE,freq=FALSE)
+  mtext(paste0("n=",names(histF1)[k]),2,line=2,cex=.85)
 
   if(k==1){
     legend(.5,7,legend=c("Wald","FAB"),pch=15,col=c(rgb(.9,.3,.3,.5),rgb(.1,.4,.6,.5)),bty="n")
   }
 
-  hist(PW[,theta0==0],prob=TRUE,col="gray",main="",
+  plot(histW0[[k]],col="gray",main="",freq=FALSE,
     xlab=c("","null Wald p-values")[xlab],ylab="",xaxt=c("n","s")[xlab])
 
-  hist(PF[,theta0==0],prob=TRUE,col="gray",main="",
+  plot(histF0[[k]],col="gray",main="",freq=FALSE,
    xlab=c("","null FAB p-values")[xlab],ylab="",xaxt=c("n","s")[xlab])
-
 }
 
-sigNN<-apply(PVALS[,theta0!=0,,]<.05,c(3,4),mean)
-sigTN<-apply(PVALS[,theta0==0,,]<.05,c(3,4),mean) 
-
-sigNN
-
-sigTN
 ```
+

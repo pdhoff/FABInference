@@ -1,5 +1,5 @@
 ---
-title: FAB $p$-values for group-level slopes in ANCOVA models
+title: FAB p-values for group-level slopes in ANCOVA models
 author: Peter Hoff
 date: 2019-07-23
 --- 

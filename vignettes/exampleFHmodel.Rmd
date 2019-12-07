@@ -1,5 +1,5 @@
 ---
-title: FAB $p$-values for small areas
+title: FAB p-values for small areas
 author: Peter Hoff 
 date: 2019-07-23
 ---

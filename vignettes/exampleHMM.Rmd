@@ -1,5 +1,5 @@
 ---
-title: FAB $p$-values for a hidden Markov model
+title: FAB p-values for a hidden Markov model
 author: Peter Hoff
 date: 2019-07-23
 ---

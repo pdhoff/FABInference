@@ -1,7 +1,7 @@
 ---
 title: "Demo and simulation study of FAB p-values"
 author: "Peter Hoff"
-date: "`r substring(Sys.time(),1,10)`"
+date: 2019-07-23
 ---
 
 

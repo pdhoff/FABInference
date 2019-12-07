@@ -25,7 +25,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -60,16 +60,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/exampleFHmodel.html">FAB -values for small areas</a>
+      <a href="articles/exampleFHmodel.html">FAB p-values for small areas</a>
     </li>
     <li>
-      <a href="articles/exampleHMM.html">FAB -values for a hidden Markov model</a>
+      <a href="articles/exampleHMM.html">FAB p-values for a hidden Markov model</a>
     </li>
     <li>
-      <a href="articles/exampleInteraction.html">FAB -values for group-level slopes in ANCOVA models</a>
+      <a href="articles/exampleInteraction.html">FAB p-values for group-level slopes in ANCOVA models</a>
     </li>
     <li>
-      <a href="articles/exampleLogistic.html">Asymptotically uniform FAB -values</a>
+      <a href="articles/exampleLogistic.html">Asymptotically uniform FAB p-values</a>
     </li>
     <li>
       <a href="articles/simstudy.html">Demo and simulation study of FAB p-values</a>
@@ -88,11 +88,7 @@
       
 
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
-
-    
-    
+  <div class="contents col-md-9">
 <div id="fabinference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fabinference" class="anchor"></a>FABInference</h2>
@@ -109,30 +105,25 @@
 <div id="usage" class="section level4">
 <h4 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h4>
-<p>Suppose you want to get FAB <span class="math inline">\(p\)</span>-values for the predictors <span class="math inline">\(x_{i,1},\ldots, x_{i,p}\)</span> in the linear model <span class="math display">\[
- y_i = \alpha_0 + \alpha_1 w_{i,1} + \alpha_2 w_{i,2} + 
-       \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i, 
-\]</span> where <span class="math inline">\(w_{i,1}\)</span> and <span class="math inline">\(w_{i,2}\)</span> (and potentially other <span class="math inline">\(w_{i,j}\)</span>’s) are additional control variables you’d like to have in the model. Then you need to</p>
-<ol style="list-style-type: decimal">
-<li><p>column-bind the <span class="math inline">\(x\)</span>-variables into an <span class="math inline">\(n\times p\)</span> matrix <code>X</code>, e.g. <code>X&lt;-cbind(x1,x2,x3)</code>;</p></li>
+<p>Suppose you want to get FAB $p$-values for the predictors $x_{i,1},\ldots, x_{i,p}$ in the linear model [ y_i = \alpha_0 + \alpha_1 w_{i,1} + \alpha_2 w_{i,2} + \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i, ] where $w_{i,1}$ and $w_{i,2}$ (and potentially other $w_{i,j}$’s) are additional control variables you’d like to have in the model. Then you need to</p>
+<ol>
+<li><p>column-bind the $x$-variables into an $n\times p$ matrix <code>X</code>, e.g. <code>X&lt;-cbind(x1,x2,x3)</code>;</p></li>
 <li><p>run the command <code>fit&lt;-lmFAB(y~w1+w2,X)</code>.</p></li>
 </ol>
-<p>The output is similar to the output of the <code>lm</code> command, so you can type <code><a href="https://rdrr.io/r/base/summary.html">summary(fit)</a></code> to see the FAB <span class="math inline">\(p\)</span>-values. The FAB <span class="math inline">\(p\)</span>-values and confidence intervals are stored in <code>fit$FABpv</code> and <code>fit$FABci</code>.</p>
-<p>If <span class="math inline">\(\beta_1,\ldots, \beta_p\)</span> correspond to <span class="math inline">\(p\)</span> objects about which you have additional covariate information (say attributes <span class="math inline">\(\{(v_{j,1},v_{j,2}), j =1,\ldots, p\}\)</span> you might be interested in fitting the model <code>fit&lt;-lmFAB(y~w1+w2,X,~v1+v2)</code>, where <code>v1</code> and <code>v2</code> are <span class="math inline">\(p\)</span>-dimensional vectors giving the attributes associated with <span class="math inline">\(\beta_1,\ldots, \beta_p\)</span>. The additional term specifies a <em>linking model</em> for <span class="math inline">\(\beta_1,\ldots, \beta_p\)</span>. Importantly, the linking model doesn’t have to be correct in any way for the FAB <span class="math inline">\(p\)</span>-values of confidence intervals to be valid. However, the better the linking model, the smaller the <span class="math inline">\(p\)</span>-values and the narrower the intervals.</p>
-<p>FAB inference for generalized linear models can be obtained similarly using the command <code>glmFAB</code>. In this case, the <span class="math inline">\(p\)</span>-values and confidence intervals are valid asymptotically (just like the standard <span class="math inline">\(p\)</span>-values and intervals). Fitting a normal linear regression with <code>glmFAB</code> is much faster than using <code>lmFAB</code> because the former uses an asymptotic approximation.</p>
+<p>The output is similar to the output of the <code>lm</code> command, so you can type <code><a href="https://rdrr.io/r/base/summary.html">summary(fit)</a></code> to see the FAB $p$-values. The FAB $p$-values and confidence intervals are stored in <code>fit$FABpv</code> and <code>fit$FABci</code>.</p>
+<p>If $\beta_1,\ldots, \beta_p$ correspond to $p$ objects about which you have additional covariate information (say attributes ${(v_{j,1},v_{j,2}), j =1,\ldots, p}$ you might be interested in fitting the model <code>fit&lt;-lmFAB(y~w1+w2,X,~v1+v2)</code>, where <code>v1</code> and <code>v2</code> are $p$-dimensional vectors giving the attributes associated with $\beta_1,\ldots, \beta_p$. The additional term specifies a <em>linking model</em> for $\beta_1,\ldots, \beta_p$. Importantly, the linking model doesn’t have to be correct in any way for the FAB $p$-values of confidence intervals to be valid. However, the better the linking model, the smaller the $p$-values and the narrower the intervals.</p>
+<p>FAB inference for generalized linear models can be obtained similarly using the command <code>glmFAB</code>. In this case, the $p$-values and confidence intervals are valid asymptotically (just like the standard $p$-values and intervals). Fitting a normal linear regression with <code>glmFAB</code> is much faster than using <code>lmFAB</code> because the former uses an asymptotic approximation.</p>
 </div>
 <div id="theoretical-details" class="section level4">
 <h4 class="hasAnchor">
 <a href="#theoretical-details" class="anchor"></a>Theoretical details</h4>
-<p>In the simplest case of a normally distributed estimator <span class="math inline">\(\hat \theta\)</span> of <span class="math inline">\(\theta\)</span> such that <span class="math inline">\(\hat\theta\sim N(\theta,\sigma^2)\)</span>, a standard <span class="math inline">\(p\)</span>-value and confidence interval are based on the test statistic <span class="math inline">\(|\hat\theta|\)</span>. A FAB <span class="math inline">\(p\)</span>-value and confidence interval is based on the statistic <span class="math inline">\(|\hat\theta+a|\)</span>, where <span class="math inline">\(a\)</span> is determined from indirect information about the sign and magnitude of <span class="math inline">\(\theta\)</span>. The functional form of the FAB <span class="math inline">\(p\)</span>-value is extremely simple: <span class="math display">\[
- p_{FAB}(\hat\theta,a) = 1- | \Phi(\hat\theta+2a) - \Phi(-\hat\theta) |, 
-\]</span> where <span class="math inline">\(\Phi\)</span> is the standard normal CDF. The FAB confidence interval is a bit more complicated. In multiparameter settings, the optimal choice for <span class="math inline">\(a\)</span> for one parameter may be estimated from data on the other parameters, using a linking model that relates the parameters to each other. Importantly, the FAB confidence intervals and <span class="math inline">\(p\)</span>-values have correct frequentist error rates, even if the linking model is incorrect.</p>
+<p>In the simplest case of a normally distributed estimator $\hat \theta$ of $\theta$ such that $\hat\theta\sim N(\theta,\sigma^2)$, a standard $p$-value and confidence interval are based on the test statistic $|\hat\theta|$. A FAB $p$-value and confidence interval is based on the statistic $|\hat\theta+a|$, where $a$ is determined from indirect information about the sign and magnitude of $\theta$. The functional form of the FAB $p$-value is extremely simple: [ p_{FAB}(\hat\theta,a) = 1- | \Phi(\hat\theta+2a) - \Phi(-\hat\theta) |, ] where $\Phi$ is the standard normal CDF. The FAB confidence interval is a bit more complicated. In multiparameter settings, the optimal choice for $a$ for one parameter may be estimated from data on the other parameters, using a linking model that relates the parameters to each other. Importantly, the FAB confidence intervals and $p$-values have correct frequentist error rates, even if the linking model is incorrect.</p>
 </div>
 <div id="installation" class="section level4">
 <h4 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Current version on GitHub</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"pdhoff/FABInference"</span>) </a></code></pre></div>
+<pre class="{r,eval=false}"><code><a href="https://rdrr.io/pkg/devtools/man/reexports.html"># Current version on GitHub
+devtools::install_github("pdhoff/FABInference") </a></code></pre>
 </div>
 <div id="documentation-and-citation" class="section level4">
 <h4 class="hasAnchor">
@@ -170,10 +161,8 @@
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
-
 
 
       <footer><div class="copyright">
@@ -181,7 +170,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
