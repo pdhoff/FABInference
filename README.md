@@ -9,7 +9,7 @@
 #### About
 In multiparameter problems, information sharing across parameters 
 can be used to improve the power of statistical hypothesis tests, thereby
-providing smaller p-values and narrower confidence intervals, on average across parameters. 
+providing smaller $p$-values and narrower confidence intervals, on average across parameters. 
 The `FABInference` package provides information sharing in linear and 
 generalized linear regression models using a syntax similar to the 
 built-in R functions `lm` and `glm`. 
