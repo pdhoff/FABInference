@@ -12,5 +12,5 @@
 \item{...}{see \code{qr.lm}, if you can find it}
 }
 \description{
-QR decomposition for lmfFAB objects
+QR decomposition for lmFAB objects
 }

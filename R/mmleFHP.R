@@ -3,9 +3,17 @@
 #' @description Marginal MLEs for the Fay-Herriot random effects model where 
 #' the covariance matrix for the sampling model is known
 #' 
-#' @param y direct data follwing normal model \eqn{y\sim N(\theta,\Sigma)} 
+#' @param y direct data following normal model \eqn{y\sim N(\theta,\Sigma)} 
 #' @param X linking model predictors \eqn{ \theta\sim N(X\beta,\tau^2 I)} 
 #' @param Sigma covariance matrix in sampling model
+#' 
+#' @return a list of parameter estimates including 
+#' \enumerate{
+#' \item beta, the estimated regression coefficients
+#' \item t2, the estimate of \eqn{\tau^2} 
+#' }
+#' 
+#' @author Peter Hoff
 #' 
 #' @export
 mmleFHP<-function(y,X,Sigma){

@@ -10,9 +10,13 @@
 #' @param silent show progress (TRUE) or not (FALSE) 
 #' @param ... additional arguments to be passed to \code{glm} 
 #' 
+#' @return an object of the class \code{glmFAB} which inherits from \code{glm}
+#' 
+#' @author Peter Hoff 
+#'
 #' @examples
 #' 
-#' # n obervations, p FAB variables, q=2 control variables 
+#' # n observations, p FAB variables, q=2 control variables 
 #' 
 #' n<-100 ; p<-25 
 #'

@@ -3,11 +3,20 @@
 #' @description Marginal MLEs for the Fay-Herriot random effects model where 
 #' the covariance matrix for the sampling model is known to scale. 
 #' 
-#' @param y direct data follwing normal model \eqn{y\sim N(\theta,V\sigma^2)} 
+#' @param y direct data following normal model \eqn{y\sim N(\theta,V\sigma^2)} 
 #' @param X linking model predictors \eqn{ \theta\sim N(X\beta,\tau^2 I)} 
 #' @param V covariance matrix to scale
 #' @param ss0 prior sum of squares for estimate of \eqn{\sigma^2} 
 #' @param df0 prior degrees of freedom for estimate of \eqn{\sigma^2} 
+#' 
+#' @return a list of parameter estimates including 
+#' \enumerate{
+#' \item beta, the estimated regression coefficients
+#' \item t2, the estimate of \eqn{\tau^2} 
+#' \item s2,  the estimate of \eqn{\sigma^2}
+#' }
+#' 
+#' @author Peter Hoff 
 #' 
 #' @export
 mmleFH<-function(y,X,V,ss0=0,df0=0){

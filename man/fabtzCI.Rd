@@ -23,6 +23,9 @@ fabtzCI(y, s, dof, alpha = 0.05, psi = list(mu = 0, tau2 = 1e+05,
 \item sigma2 the variance of y
 }}
 }
+\value{
+a two-dimensional vector of the left and right endpoints of the interval
+}
 \description{
 Computation of a 1-alpha FAB t-interval using 
 z-optimal spending function
@@ -32,4 +35,7 @@ n<-10
 y<-rnorm(n) 
 fabtzCI(mean(y),sqrt(var(y)/n),n-1)  
 t.test(y)$conf.int 
+}
+\author{
+Peter Hoff
 }

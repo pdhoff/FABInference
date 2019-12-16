@@ -1,6 +1,6 @@
 #' @title Summarizing Linear Model Fits with FAB Inference
 #' 
-#' @description \code{summary} method for class 'lmFAB'
+#' @description \code{summary} method for class \code{lmFAB}
 #' 
 #' @param object an object of class \code{lmFAB}
 #' @param correlation see \code{summary.lm}
@@ -125,7 +125,7 @@ summary.lmFAB<-function (object, correlation = FALSE, symbolic.cor = FALSE,
 
 #' @title QR decomposition 
 #' 
-#' @description QR decomposition for lmfFAB objects
+#' @description QR decomposition for lmFAB objects
 #' 
 #' @param x \code{lmFAB} object 
 #' @param ... see \code{qr.lm}, if you can find it
@@ -140,7 +140,7 @@ qr.lmFAB<-function (x, ...)
 
 #' @title Summarizing Generalized Linear Model Fits with FAB Inference
 #' 
-#' @description \code{summary} method for class 'glmFAB'
+#' @description \code{summary} method for class \code{glmFAB}
 #' 
 #' @param object an object of class \code{glmFAB}
 #' @param dispersion see \code{summary.glm}

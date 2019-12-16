@@ -12,7 +12,7 @@ lmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
 
 \item{FABvars}{matrix of regressors for which to make FAB p-values and CIs}
 
-\item{lformula}{formula for the lining model (just specify right-hand side)}
+\item{lformula}{formula for the linking model (just specify right-hand side)}
 
 \item{alpha}{error rate for CIs (1-alpha CIs will be constructed)}
 
@@ -20,13 +20,16 @@ lmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
 
 \item{silent}{show progress (TRUE) or not (FALSE)}
 }
+\value{
+an object of the class \code{lmFAB} which inherits from \code{lm}
+}
 \description{
 FAB p-values and confidence intervals for parameters
 in linear regression models
 }
 \examples{
 
-# n obervations, p FAB variables, q=2 control variables 
+# n observations, p FAB variables, q=2 control variables 
 
 n<-100 ; p<-25 
 
@@ -52,4 +55,7 @@ fit$FABpv
 fit$FABci 
 summary(fit) # look at p-value column 
 
+}
+\author{
+Peter Hoff
 }

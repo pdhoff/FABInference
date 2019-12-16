@@ -18,6 +18,9 @@ sfabz(theta, psi, alpha = 0.05)
 
 \item{alpha}{level of test}
 }
+\value{
+a scalar value giving the optimal tail-area probability
+}
 \description{
 Compute Bayes optimal spending function
 }

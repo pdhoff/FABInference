@@ -14,6 +14,10 @@
 #' \item sigma2 the variance of y
 #' }
 #'
+#' @return a two-dimensional vector of the left and right endpoints of the interval
+#' 
+#' @author Peter Hoff 
+#'
 #' @examples
 #' n<-10 
 #' y<-rnorm(n) 
@@ -80,6 +84,8 @@ c(thetaL,thetaU)
 #'
 #' @author Peter Hoff 
 #' 
+#' @return a scalar value giving the optimal tail-area probability
+#'
 #' @export
 sfabz<-function(theta,psi,alpha=.05)
 {

@@ -24,10 +24,10 @@
 #' @param t2 a positive numeric scalar
 #' @param s2 a positive numeric scalar
 #' @param alpha the type I error rate, so 1-alpha is the coverage rate 
+#'
+#' @return a two-dimensional vector of the left and right endpoints of the interval
 #' 
 #' @author Peter Hoff  
-#' 
-#' @keywords htest 
 #' 
 #' @examples
 #' y<-0

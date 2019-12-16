@@ -6,6 +6,10 @@
 #' @param df0 degrees of freedom for the smaller of the two residual sums of squares 
 #' @param seed random seed for constructing the basis vectors of the split
 #' 
+#' @return a two-dimensional vector of independent sums of squares
+#' 
+#' @author Peter Hoff 
+#'
 #' @export
 rssSplit<-function(fit,df0=max(1,floor(fit$df/10)),seed=-71407){
 

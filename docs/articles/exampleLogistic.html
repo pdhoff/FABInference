@@ -113,115 +113,115 @@ y &amp; \sim N_p( \theta , \sigma^2 I) \\
 \theta_1,\ldots, \theta_p &amp;\sim i.i.d\ (1-\pi) \delta_0(\theta) + \text{dnorm}(\theta, \mu,\tau) 
 \end{align*}
 \]</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">fitMM&lt;-<span class="cf">function</span>(y,s2){</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  obj&lt;-<span class="cf">function</span>(gam){</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    pi&lt;-gam[<span class="dv">1</span>] ; mu&lt;-gam[<span class="dv">2</span>] ; t2&lt;-gam[<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>( pi<span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(y,mu,<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(t2<span class="op">+</span>s2)) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>pi)<span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(y,<span class="dv">0</span>,<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(s2))) )</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  }</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">  mut2&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/optim.html">optim</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">9</span>,<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y),<span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(y)),obj,<span class="dt">method=</span><span class="st">"L-BFGS-B"</span>,</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">               <span class="dt">lower=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">001</span>,<span class="op">-</span><span class="ot">Inf</span>,.<span class="dv">001</span>),<span class="dt">upper=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">999</span>,<span class="ot">Inf</span>,<span class="ot">Inf</span>))<span class="op">$</span>par[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(mut2)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mu"</span>,<span class="st">"t2"</span>)</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  mut2</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitMM&lt;-function(y,s2){
+
+  obj&lt;-function(gam){
+    pi&lt;-gam[<span class="dv">1</span>] ; mu&lt;-gam[<span class="dv">2</span>] ; t2&lt;-gam[<span class="dv">3</span>]
+    -<span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>( pi*<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(y,mu,<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(t2+s2)) +<span class="st"> </span>(<span class="dv">1</span>-pi)*<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span>(y,<span class="dv">0</span>,<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(s2))) )
+  }
+
+  mut2&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/optim.html">optim</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">9</span>,<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y),<span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(y)),obj,<span class="dt">method=</span><span class="st">"L-BFGS-B"</span>,
+               <span class="dt">lower=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">001</span>,-<span class="ot">Inf</span>,.<span class="dv">001</span>),<span class="dt">upper=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">999</span>,<span class="ot">Inf</span>,<span class="ot">Inf</span>))$par[<span class="dv">2</span>:<span class="dv">3</span>]
+  <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(mut2)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mu"</span>,<span class="st">"t2"</span>)
+  mut2
+}</code></pre></div>
 <p>For this example, for each <span class="math inline">\(\theta_j\)</span> we will plug-in an estimate <span class="math inline">\(\hat\theta_{-j}\)</span> of the vector <span class="math inline">\(\theta_{-j}\)</span> using data that is independent (asymptotically) of <span class="math inline">\(\hat\theta_j\)</span>.</p>
 <p>Here is the simulation:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">p&lt;-<span class="dv">30</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">theta0&lt;-<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">0</span>),<span class="dt">times=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(p<span class="op">/</span><span class="dv">2</span>,p<span class="op">/</span><span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">nvals&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">200</span>,<span class="dv">400</span>,<span class="dv">800</span>,<span class="dv">1600</span>) </a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">nsim&lt;-<span class="dv">5000</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">histW0&lt;-histF0&lt;-histW1&lt;-histF1&lt;-<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>() </a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">sigTN&lt;-sigNN&lt;-<span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>)) </a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(nvals)){</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">  n&lt;-nvals[k] </a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">  PF&lt;-PW&lt;-<span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">  <span class="cf">for</span>(s <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsim){ </a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">    X&lt;-<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n<span class="op">*</span>p),n,p) </a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">    lp&lt;-X<span class="op">%*%</span>theta0<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(n)</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">    y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(n,<span class="dv">1</span>,<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(<span class="op">-</span>lp))) </a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">    fit&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(y<span class="op">~-</span><span class="dv">1</span><span class="op">+</span>X,<span class="dt">family=</span><span class="st">"binomial"</span>)</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    theta&lt;-fit<span class="op">$</span>coef</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">    Sigma&lt;-<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(fit)<span class="op">$</span>cov.scaled</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">    s2&lt;-<span class="kw"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(Sigma)  </a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">    MUT2&lt;-<span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p){</a>
-<a class="sourceLine" id="cb2-30" data-line-number="30">      G&lt;-MASS<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/MASS/man/Null.html">Null</a></span>(Sigma[,j])</a>
-<a class="sourceLine" id="cb2-31" data-line-number="31">      MUT2&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(MUT2,<span class="kw">fitMM</span>(  (G<span class="op">%*%</span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(G)<span class="op">%*%</span>theta))[<span class="op">-</span>j],s2[<span class="op">-</span>j]) )</a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">    }</a>
-<a class="sourceLine" id="cb2-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb2-34" data-line-number="34">    z&lt;-theta<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(s2)</a>
-<a class="sourceLine" id="cb2-35" data-line-number="35">    pW&lt;-<span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(z)<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(<span class="op">-</span>z))</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36">    pF&lt;-<span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(z<span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(s2)<span class="op">*</span>MUT2[,<span class="dv">1</span>]<span class="op">/</span>MUT2[,<span class="dv">2</span>]) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(<span class="op">-</span>z) ) </a>
-<a class="sourceLine" id="cb2-37" data-line-number="37">    PF&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(PF,pF) ; PW&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(PW,pW)   </a>
-<a class="sourceLine" id="cb2-38" data-line-number="38">  } </a>
-<a class="sourceLine" id="cb2-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb2-40" data-line-number="40">  histW0[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0<span class="op">==</span><span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb2-41" data-line-number="41">  histW1[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0<span class="op">!=</span><span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>)  </a>
-<a class="sourceLine" id="cb2-42" data-line-number="42">  histF0[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0<span class="op">==</span><span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb2-43" data-line-number="43">  histF1[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0<span class="op">!=</span><span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>)   </a>
-<a class="sourceLine" id="cb2-44" data-line-number="44"></a>
-<a class="sourceLine" id="cb2-45" data-line-number="45">  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0<span class="op">!=</span><span class="dv">0</span>],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">5</span>),<span class="dt">prob=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb2-46" data-line-number="46">  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0<span class="op">!=</span><span class="dv">0</span>],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">8</span>,.<span class="dv">2</span>,.<span class="dv">5</span>,.<span class="dv">5</span>),<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">prob=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb2-47" data-line-number="47"></a>
-<a class="sourceLine" id="cb2-48" data-line-number="48">  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0<span class="op">==</span><span class="dv">0</span>]) </a>
-<a class="sourceLine" id="cb2-49" data-line-number="49">  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0<span class="op">==</span><span class="dv">0</span>]) </a>
-<a class="sourceLine" id="cb2-50" data-line-number="50"></a>
-<a class="sourceLine" id="cb2-51" data-line-number="51"> pW&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PW[,theta0<span class="op">==</span><span class="dv">0</span>]<span class="op">&lt;</span>.<span class="dv">05</span>) ; pF&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PF[,theta0<span class="op">==</span><span class="dv">0</span>]<span class="op">&lt;</span>.<span class="dv">05</span>) </a>
-<a class="sourceLine" id="cb2-52" data-line-number="52"> sigTN&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(sigTN,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pW,pF))  </a>
-<a class="sourceLine" id="cb2-53" data-line-number="53"></a>
-<a class="sourceLine" id="cb2-54" data-line-number="54"> pW&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PW[,theta0<span class="op">!=</span><span class="dv">0</span>]<span class="op">&lt;</span>.<span class="dv">05</span>) ; pF&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PF[,theta0<span class="op">!=</span><span class="dv">0</span>]<span class="op">&lt;</span>.<span class="dv">05</span>) </a>
-<a class="sourceLine" id="cb2-55" data-line-number="55"> sigNN&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(sigNN,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pW,pF))  </a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"></a>
-<a class="sourceLine" id="cb2-57" data-line-number="57">}</a></code></pre></div>
-<p><img src="../docs/articles/exampleLogistic_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)
+p&lt;-<span class="dv">30</span>
+theta0&lt;-<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">0</span>),<span class="dt">times=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(p/<span class="dv">2</span>,p/<span class="dv">2</span>))
+nvals&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">200</span>,<span class="dv">400</span>,<span class="dv">800</span>,<span class="dv">1600</span>) 
+nsim&lt;-<span class="dv">5000</span>
+
+histW0&lt;-histF0&lt;-histW1&lt;-histF1&lt;-<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>() 
+sigTN&lt;-sigNN&lt;-<span class="ot">NULL</span>
+
+<span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>)) 
+
+for(k in <span class="dv">1</span>:<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(nvals)){
+
+  n&lt;-nvals[k] 
+
+  PF&lt;-PW&lt;-<span class="ot">NULL</span>
+  for(s in <span class="dv">1</span>:nsim){ 
+
+    X&lt;-<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n*p),n,p) 
+    lp&lt;-X%*%theta0/<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(n)
+    y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(n,<span class="dv">1</span>,<span class="dv">1</span>/(<span class="dv">1</span>+<span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(-lp))) 
+    fit&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(y~-<span class="dv">1</span>+X,<span class="dt">family=</span><span class="st">"binomial"</span>)
+
+    theta&lt;-fit$coef
+    Sigma&lt;-<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(fit)$cov.scaled
+    s2&lt;-<span class="kw"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(Sigma)  
+
+    MUT2&lt;-<span class="ot">NULL</span>
+    for(j in <span class="dv">1</span>:p){
+      G&lt;-MASS::<span class="kw">Null</span>(Sigma[,j])
+      MUT2&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(MUT2,<span class="kw">fitMM</span>(  (G%*%(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(G)%*%theta))[-j],s2[-j]) )
+    }
+
+    z&lt;-theta/<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(s2)
+    pW&lt;-<span class="dv">1</span>-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(z)-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(-z))
+    pF&lt;-<span class="dv">1</span>-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(z<span class="dv">+2</span>*<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(s2)*MUT2[,<span class="dv">1</span>]/MUT2[,<span class="dv">2</span>]) -<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(-z) ) 
+    PF&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(PF,pF) ; PW&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(PW,pW)   
+  } 
+
+  histW0[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0==<span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>) 
+  histW1[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0!=<span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>)  
+  histF0[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0==<span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>) 
+  histF1[[k]]&lt;-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0!=<span class="dv">0</span>],<span class="dt">plot=</span><span class="ot">FALSE</span>)   
+
+  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0!=<span class="dv">0</span>],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">5</span>),<span class="dt">prob=</span><span class="ot">TRUE</span>) 
+  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0!=<span class="dv">0</span>],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">8</span>,.<span class="dv">2</span>,.<span class="dv">5</span>,.<span class="dv">5</span>),<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">prob=</span><span class="ot">TRUE</span>) 
+
+  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PF[,theta0==<span class="dv">0</span>]) 
+  <span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(PW[,theta0==<span class="dv">0</span>]) 
+
+ pW&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PW[,theta0==<span class="dv">0</span>]&lt;.<span class="dv">05</span>) ; pF&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PF[,theta0==<span class="dv">0</span>]&lt;.<span class="dv">05</span>) 
+ sigTN&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(sigTN,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pW,pF))  
+
+ pW&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PW[,theta0!=<span class="dv">0</span>]&lt;.<span class="dv">05</span>) ; pF&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(PF[,theta0!=<span class="dv">0</span>]&lt;.<span class="dv">05</span>) 
+ sigNN&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(sigNN,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pW,pF))  
+
+}</code></pre></div>
+<p><img src="exampleLogistic_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>Here we save the results:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sigTN)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sigNN)&lt;-nvals</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(sigTN)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(sigNN)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pW"</span>,<span class="st">"pF"</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histW0)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histW1)&lt;-nvals</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histF0)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histF1)&lt;-nvals  </a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/save.html">save</a></span>(sigTN,sigNN,histW0,histW1,histF0,histF1,<span class="dt">file=</span><span class="st">"resultsLogistic.RData"</span>) </a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sigTN)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(sigNN)&lt;-nvals
+<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(sigTN)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(sigNN)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pW"</span>,<span class="st">"pF"</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histW0)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histW1)&lt;-nvals
+<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histF0)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histF1)&lt;-nvals  
+<span class="kw"><a href="https://rdrr.io/r/base/save.html">save</a></span>(sigTN,sigNN,histW0,histW1,histF0,histF1,<span class="dt">file=</span><span class="st">"resultsLogistic.RData"</span>) </code></pre></div>
 <p>Here are the fractions of true-null <span class="math inline">\(p\)</span>-values below 0.05:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">sigTN</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigTN</code></pre></div>
 <pre><code>##           200        400        800    1600
 ## pW 0.06944000 0.05845333 0.05421333 0.05048
 ## pF 0.06394667 0.05730667 0.05309333 0.05004</code></pre>
 <p>Here are the fractions of non-null <span class="math inline">\(p\)</span>-values below 0.05:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">sigNN</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigNN</code></pre></div>
 <pre><code>##          200       400       800      1600
 ## pW 0.2923733 0.3062933 0.3154933 0.3189067
 ## pF 0.4010933 0.4189067 0.4282800 0.4353733</code></pre>
 <p>Here are the plots from the article:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2.75</span>,<span class="fl">3.2</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">  xlab&lt;-<span class="dv">1</span><span class="op">*</span>(k<span class="op">==</span><span class="dv">4</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histF1[[k]],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">6</span>,.<span class="dv">5</span>),<span class="dt">main=</span><span class="st">""</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">       <span class="dt">xlab=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>,<span class="st">"non-null p-values"</span>)[xlab],<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">xaxt=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>,<span class="st">"s"</span>)[xlab] )</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histW1[[k]],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">9</span>,.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">5</span>),<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"n="</span>,<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histF1)[k]),<span class="dv">2</span>,<span class="dt">line=</span><span class="dv">2</span>,<span class="dt">cex=</span>.<span class="dv">85</span>)</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">  <span class="cf">if</span>(k<span class="op">==</span><span class="dv">1</span>){</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">    <span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(.<span class="dv">5</span>,<span class="dv">7</span>,<span class="dt">legend=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Wald"</span>,<span class="st">"FAB"</span>),<span class="dt">pch=</span><span class="dv">15</span>,<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">9</span>,.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">5</span>),<span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">6</span>,.<span class="dv">5</span>)),<span class="dt">bty=</span><span class="st">"n"</span>)</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">  }</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histW0[[k]],<span class="dt">col=</span><span class="st">"gray"</span>,<span class="dt">main=</span><span class="st">""</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">    <span class="dt">xlab=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>,<span class="st">"null Wald p-values"</span>)[xlab],<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">xaxt=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>,<span class="st">"s"</span>)[xlab])</a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18">  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histF0[[k]],<span class="dt">col=</span><span class="st">"gray"</span>,<span class="dt">main=</span><span class="st">""</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb8-19" data-line-number="19">   <span class="dt">xlab=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>,<span class="st">"null FAB p-values"</span>)[xlab],<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">xaxt=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>,<span class="st">"s"</span>)[xlab])</a>
-<a class="sourceLine" id="cb8-20" data-line-number="20">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2.75</span>,<span class="fl">3.2</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))
+for(k in <span class="dv">1</span>:<span class="dv">4</span>){
+
+  xlab&lt;-<span class="dv">1</span>*(k==<span class="dv">4</span>) +<span class="st"> </span><span class="dv">1</span>
+
+  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histF1[[k]],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">6</span>,.<span class="dv">5</span>),<span class="dt">main=</span><span class="st">""</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>,
+       <span class="dt">xlab=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>,<span class="st">"non-null p-values"</span>)[xlab],<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">xaxt=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>,<span class="st">"s"</span>)[xlab] )
+  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histW1[[k]],<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">9</span>,.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">5</span>),<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>)
+  <span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"n="</span>,<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(histF1)[k]),<span class="dv">2</span>,<span class="dt">line=</span><span class="dv">2</span>,<span class="dt">cex=</span>.<span class="dv">85</span>)
+
+  if(k==<span class="dv">1</span>){
+    <span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(.<span class="dv">5</span>,<span class="dv">7</span>,<span class="dt">legend=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Wald"</span>,<span class="st">"FAB"</span>),<span class="dt">pch=</span><span class="dv">15</span>,<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">9</span>,.<span class="dv">3</span>,.<span class="dv">3</span>,.<span class="dv">5</span>),<span class="kw"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(.<span class="dv">1</span>,.<span class="dv">4</span>,.<span class="dv">6</span>,.<span class="dv">5</span>)),<span class="dt">bty=</span><span class="st">"n"</span>)
+  }
+
+  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histW0[[k]],<span class="dt">col=</span><span class="st">"gray"</span>,<span class="dt">main=</span><span class="st">""</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>,
+    <span class="dt">xlab=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>,<span class="st">"null Wald p-values"</span>)[xlab],<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">xaxt=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>,<span class="st">"s"</span>)[xlab])
+
+  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(histF0[[k]],<span class="dt">col=</span><span class="st">"gray"</span>,<span class="dt">main=</span><span class="st">""</span>,<span class="dt">freq=</span><span class="ot">FALSE</span>,
+   <span class="dt">xlab=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>,<span class="st">"null FAB p-values"</span>)[xlab],<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">xaxt=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>,<span class="st">"s"</span>)[xlab])
+}</code></pre></div>
 <p><img src="exampleLogistic_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
   </div>

@@ -5,9 +5,9 @@ Description: Frequentist assisted by Bayes (FAB) p-values and confidence
     interval construction. See 'Smaller p-values via indirect information'
     (Hoff <arXiv:1907.12589>), 
     'Adaptive multigroup confidence intervals with constant
-    coverage' (Yu and Hoff <arXiv:1612.08287>) and
+    coverage' (Yu and Hoff [2018] <arXiv:1612.08287>) and
     'Exact adaptive confidence intervals for linear regression coefficients'
-    (Hoff and Yu <arXiv:1705.08331>). 
+    (Hoff and Yu [2019] <arXiv:1705.08331>). 
 Date: 2019-12-07
 Author: Peter Hoff
 Maintainer: Peter Hoff <peter.hoff@duke.edu>

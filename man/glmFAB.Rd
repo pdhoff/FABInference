@@ -20,13 +20,16 @@ glmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
 
 \item{...}{additional arguments to be passed to \code{glm}}
 }
+\value{
+an object of the class \code{glmFAB} which inherits from \code{glm}
+}
 \description{
 asymptotic FAB p-values and confidence intervals for parameters
 in generalized linear regression models
 }
 \examples{
 
-# n obervations, p FAB variables, q=2 control variables 
+# n observations, p FAB variables, q=2 control variables 
 
 n<-100 ; p<-25 
 
@@ -52,4 +55,7 @@ fit$FABpv
 fit$FABci 
 summary(fit) # look at p-value column 
 
+}
+\author{
+Peter Hoff
 }

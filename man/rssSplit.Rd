@@ -13,6 +13,12 @@ rssSplit(fit, df0 = max(1, floor(fit$df/10)), seed = -71407)
 
 \item{seed}{random seed for constructing the basis vectors of the split}
 }
+\value{
+a two-dimensional vector of independent sums of squares
+}
 \description{
 Split residual sum of squares from normal linear regression
+}
+\author{
+Peter Hoff
 }

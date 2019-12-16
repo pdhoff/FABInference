@@ -19,7 +19,7 @@
 \item{...}{see \code{summary.glm}}
 }
 \description{
-\code{summary} method for class 'glmFAB'
+\code{summary} method for class \code{glmFAB}
 }
 \details{
 A mod of \code{summary.glm} that shows FAB p-values in table

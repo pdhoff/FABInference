@@ -5,14 +5,18 @@
 #' 
 #' @param cformula formua for the control variables
 #' @param FABvars  matrix of regressors for which to make FAB p-values and CIs
-#' @param lformula formula for the lining model (just specify right-hand side)
+#' @param lformula formula for the linking model (just specify right-hand side)
 #' @param alpha error rate for CIs (1-alpha CIs will be constructed) 
 #' @param rssSplit use some residual degrees of freedom to help fit linking model (TRUE/FALSE) 
 #' @param silent show progress (TRUE) or not (FALSE) 
 #' 
+#' @return an object of the class \code{lmFAB} which inherits from \code{lm}
+#'
+#' @author Peter Hoff  
+#'
 #' @examples
 #' 
-#' # n obervations, p FAB variables, q=2 control variables 
+#' # n observations, p FAB variables, q=2 control variables 
 #' 
 #' n<-100 ; p<-25 
 #'

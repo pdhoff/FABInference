@@ -17,6 +17,9 @@ fabzCI(y, mu, t2, s2, alpha = 0.05)
 
 \item{alpha}{the type I error rate, so 1-alpha is the coverage rate}
 }
+\value{
+a two-dimensional vector of the left and right endpoints of the interval
+}
 \description{
 Computation of a 1-alpha FAB z-interval
 }
@@ -49,4 +52,3 @@ fabzCI(y,0,1/10,1)
 \author{
 Peter Hoff
 }
-\keyword{htest}

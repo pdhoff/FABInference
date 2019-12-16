@@ -17,7 +17,7 @@
 \item{...}{see \code{summary.lm}}
 }
 \description{
-\code{summary} method for class 'lmFAB'
+\code{summary} method for class \code{lmFAB}
 }
 \details{
 A mod of \code{summary.lm} that shows FAB p-values in table
