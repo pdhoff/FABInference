@@ -81,7 +81,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="simstudy_files/jquery-1.11.3/jquery.min.js"></script><script src="simstudy_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Demo and simulation study of FAB p-values</h1>
@@ -96,7 +96,7 @@
 
     
     
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(FABInference)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(FABInference)</span></code></pre></div>
 <p>This vignette presents a small simulation study comparing FAB <span class="math inline">\(p\)</span>-values to UMPU <span class="math inline">\(p\)</span>-values (for linear models) and to Wald <span class="math inline">\(p\)</span>-values (for generalized linear models). There are <span class="math inline">\(2\times 3\)</span> scenarios considered - two “models” (normal linear regression and Poisson regression), and three regimes for the true regression coefficients:</p>
 <ol style="list-style-type: decimal">
 <li><p>all coefficients are zero;</p></li>
@@ -111,56 +111,56 @@
 </ol>
 <p>Below is code to implement these scenarios. Note that for pedagogic reasons<br>
 an extra couple of observed “control” variables, <code>w1</code> and <code>w2</code> are included in the regression model, but are not part of the linking model. Below the code is a summary plot of the results, giving the CDFs of the different kinds of <span class="math inline">\(p\)</span>-values. The results are as expected.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#### sim study  
-n&lt;-<span class="dv">100</span> ; p&lt;-<span class="dv">25</span> ; nsim&lt;-<span class="dv">100</span>
-
-<span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfcol=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))
-for(model in <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gaussian"</span>,<span class="st">"Poisson"</span>)){ 
-for(scenario in <span class="dv">1</span>:<span class="dv">3</span>){ 
-
-  FP&lt;-<span class="ot">NULL</span> ; UP&lt;-<span class="ot">NULL</span>
-  for(s in <span class="dv">1</span>:nsim){
-    <span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(s) 
-
-    ## FAB coefficients and variables
-    v&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p)
-    if(scenario==<span class="dv">1</span>){ beta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">0</span>,p) } 
-    if(scenario==<span class="dv">2</span>){ beta&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p) } 
-    if(scenario==<span class="dv">3</span>){ beta&lt;-(<span class="dv">2</span> -<span class="st"> </span><span class="dv">2</span>*v +<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p))/<span class="dv">3</span> } 
-    X&lt;-<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n*p),n,p)/<span class="dv">8</span>
- 
-    ## control coefficients and variables  
-    alpha1&lt;-.<span class="dv">5</span> ; alpha2&lt;-<span class="st"> </span>-.<span class="dv">5</span>
-    w1&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n)/<span class="dv">8</span>
-    w2&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n)/<span class="dv">8</span>
-
-    ## simulate data and fit model
-    lp&lt;-<span class="dv">1</span> +<span class="st"> </span>alpha1*w1 +<span class="st"> </span>alpha2*w2 +<span class="st"> </span>X%*%beta 
-
-    if(model==<span class="st">"Gaussian"</span>){
-      y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n,lp) 
-      fit0&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(y~w1+w2+X)
-      fit1&lt;-<span class="kw"><a href="../reference/lmFAB.html">lmFAB</a></span>(y~w1+w2,X,~v,<span class="dt">silent=</span><span class="ot">TRUE</span>)
-    }
-
-    if(model==<span class="st">"Poisson"</span>){ 
-      y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span>(n,<span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(lp))
-      fit0&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(y~w1+w2+X,<span class="dt">family=</span>poisson)
-      fit1&lt;-<span class="kw"><a href="../reference/glmFAB.html">glmFAB</a></span>(y~w1+w2,X,~v,<span class="dt">family=</span>poisson,<span class="dt">silent=</span><span class="ot">TRUE</span>)
-    }
-
-    ## output
-    FP&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(FP,fit1$FABpv)
-    UP&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(UP,<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(fit0)$coef[fit1$FABvars,<span class="dv">4</span>] )  
-    }
-
-  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">type=</span><span class="st">"n"</span>,<span class="dt">xlab=</span><span class="st">"pval"</span>,<span class="dt">ylab=</span><span class="st">""</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">col=</span><span class="st">"gray"</span>) 
-  <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(UP),<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length=</span>s*p),<span class="dt">col=</span><span class="st">"pink"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(FP),<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length=</span>s*p),<span class="dt">col=</span><span class="st">"blue"</span>)
-  <span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(.<span class="dv">6</span>,.<span class="dv">4</span>,<span class="dt">lty=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pink"</span>,<span class="st">"blue"</span>),<span class="dt">legend=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pU"</span>,<span class="st">"pF"</span>)) 
- 
-}}</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#### sim study  </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>n&lt;-<span class="dv">100</span> ; p&lt;-<span class="dv">25</span> ; nsim&lt;-<span class="dv">100</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfcol=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="cf">for</span>(model <span class="cf">in</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Gaussian"</span>,<span class="st">"Poisson"</span>)){ </span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="cf">for</span>(scenario <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>){ </span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  FP&lt;-<span class="ot">NULL</span> ; UP&lt;-<span class="ot">NULL</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="cf">for</span>(s <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsim){</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(s) </span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="co">## FAB coefficients and variables</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    v&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="cf">if</span>(scenario<span class="op">==</span><span class="dv">1</span>){ beta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="dv">0</span>,p) } </span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="cf">if</span>(scenario<span class="op">==</span><span class="dv">2</span>){ beta&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p) } </span>
+<span id="cb2-16"><a href="#cb2-16"></a>    <span class="cf">if</span>(scenario<span class="op">==</span><span class="dv">3</span>){ beta&lt;-(<span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>v <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p))<span class="op">/</span><span class="dv">3</span> } </span>
+<span id="cb2-17"><a href="#cb2-17"></a>    X&lt;-<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n<span class="op">*</span>p),n,p)<span class="op">/</span><span class="dv">8</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a> </span>
+<span id="cb2-19"><a href="#cb2-19"></a>    <span class="co">## control coefficients and variables  </span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>    alpha1&lt;-.<span class="dv">5</span> ; alpha2&lt;-<span class="st"> </span><span class="fl">-.5</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>    w1&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n)<span class="op">/</span><span class="dv">8</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>    w2&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n)<span class="op">/</span><span class="dv">8</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="co">## simulate data and fit model</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>    lp&lt;-<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>alpha1<span class="op">*</span>w1 <span class="op">+</span><span class="st"> </span>alpha2<span class="op">*</span>w2 <span class="op">+</span><span class="st"> </span>X<span class="op">%*%</span>beta </span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="cf">if</span>(model<span class="op">==</span><span class="st">"Gaussian"</span>){</span>
+<span id="cb2-28"><a href="#cb2-28"></a>      y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(n,lp) </span>
+<span id="cb2-29"><a href="#cb2-29"></a>      fit0&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(y<span class="op">~</span>w1<span class="op">+</span>w2<span class="op">+</span>X)</span>
+<span id="cb2-30"><a href="#cb2-30"></a>      fit1&lt;-<span class="kw"><a href="../reference/lmFAB.html">lmFAB</a></span>(y<span class="op">~</span>w1<span class="op">+</span>w2,X,<span class="op">~</span>v,<span class="dt">silent=</span><span class="ot">TRUE</span>)</span>
+<span id="cb2-31"><a href="#cb2-31"></a>    }</span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a>    <span class="cf">if</span>(model<span class="op">==</span><span class="st">"Poisson"</span>){ </span>
+<span id="cb2-34"><a href="#cb2-34"></a>      y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span>(n,<span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(lp))</span>
+<span id="cb2-35"><a href="#cb2-35"></a>      fit0&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(y<span class="op">~</span>w1<span class="op">+</span>w2<span class="op">+</span>X,<span class="dt">family=</span>poisson)</span>
+<span id="cb2-36"><a href="#cb2-36"></a>      fit1&lt;-<span class="kw"><a href="../reference/glmFAB.html">glmFAB</a></span>(y<span class="op">~</span>w1<span class="op">+</span>w2,X,<span class="op">~</span>v,<span class="dt">family=</span>poisson,<span class="dt">silent=</span><span class="ot">TRUE</span>)</span>
+<span id="cb2-37"><a href="#cb2-37"></a>    }</span>
+<span id="cb2-38"><a href="#cb2-38"></a></span>
+<span id="cb2-39"><a href="#cb2-39"></a>    <span class="co">## output</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>    FP&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(FP,fit1<span class="op">$</span>FABpv)</span>
+<span id="cb2-41"><a href="#cb2-41"></a>    UP&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(UP,<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(fit0)<span class="op">$</span>coef[fit1<span class="op">$</span>FABvars,<span class="dv">4</span>] )  </span>
+<span id="cb2-42"><a href="#cb2-42"></a>    }</span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a>  <span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">type=</span><span class="st">"n"</span>,<span class="dt">xlab=</span><span class="st">"pval"</span>,<span class="dt">ylab=</span><span class="st">""</span>)</span>
+<span id="cb2-45"><a href="#cb2-45"></a>  <span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">col=</span><span class="st">"gray"</span>) </span>
+<span id="cb2-46"><a href="#cb2-46"></a>  <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(UP),<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length=</span>s<span class="op">*</span>p),<span class="dt">col=</span><span class="st">"pink"</span>)</span>
+<span id="cb2-47"><a href="#cb2-47"></a>  <span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(FP),<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length=</span>s<span class="op">*</span>p),<span class="dt">col=</span><span class="st">"blue"</span>)</span>
+<span id="cb2-48"><a href="#cb2-48"></a>  <span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(.<span class="dv">6</span>,.<span class="dv">4</span>,<span class="dt">lty=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pink"</span>,<span class="st">"blue"</span>),<span class="dt">legend=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pU"</span>,<span class="st">"pF"</span>)) </span>
+<span id="cb2-49"><a href="#cb2-49"></a> </span>
+<span id="cb2-50"><a href="#cb2-50"></a>}}</span></code></pre></div>
 <p><img src="simstudy_files/figure-html/simstudy-1.png" width="700"></p>
   </div>
 

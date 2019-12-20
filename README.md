@@ -14,17 +14,14 @@ The `FABInference` package provides information sharing in linear and
 generalized linear regression models using a syntax similar to the 
 built-in R functions `lm` and `glm`. 
 
-
 #### Usage
-Suppose you want to get FAB $p$-values for the predictors 
-$x_{i,1},\ldots, x_{i,p}$ in the linear model 
+Suppose you want to get FAB $p$-values for the predictors $x_{i,1},\ldots, x_{i,p}$ in the linear model
+
 \[
- y_i = \alpha_0 + \alpha_1 w_{i,1} + \alpha_2 w_{i,2} + 
-       \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i, 
+ y_i = \alpha_0 + \alpha_1 w_{i,1} + \alpha_2 w_{i,2} + \beta_1 x_{i,1} + \cdots + \beta_p x_{i,p} + \epsilon_i,  
 \]
-where $w_{i,1}$ and $w_{i,2}$ (and potentially other $w_{i,j}$'s) 
-are additional control variables you'd like to have in the model. 
-Then you need to 
+
+where $w_{i,1}$ and $w_{i,2}$ (and potentially other $w_{i,j}$'s) are additional control variables you'd like to have in the model. Then you need to
 
 1. column-bind the $x$-variables into an $n\times p$ matrix `X`, 
    e.g. `X<-cbind(x1,x2,x3)`; 
@@ -51,19 +48,19 @@ $p$-values and intervals). Fitting a normal linear regression
 with `glmFAB` is much faster than using `lmFAB` because the former uses 
 an asymptotic approximation. 
 
-
-
 #### Theoretical details
-In the simplest case of a normally distributed estimator $\hat \theta$ of
-$\theta$ such that $\hat\theta\sim N(\theta,\sigma^2)$, a standard $p$-value
+In the simplest case of a normally distributed estimator $\hat\theta$ of
+$\theta$ such that $\hat \theta \sim N(\theta,\sigma^2)$, a standard $p$-value
 and confidence interval are based on the test statistic $|\hat\theta|$. 
 A FAB $p$-value and confidence interval is  based on the statistic
-$|\hat\theta+a|$, where $a$ is determined from indirect information about 
+$|\hat\theta + a|$, where $a$ is determined from indirect information about 
 the sign and magnitude of $\theta$. The functional form of the FAB $p$-value
 is extremely simple: 
+
 \[
  p_{FAB}(\hat\theta,a) = 1- | \Phi(\hat\theta+2a) - \Phi(-\hat\theta) |, 
 \]
+
 where $\Phi$ is the standard normal CDF. The FAB confidence interval is a bit more complicated. In multiparameter settings, the optimal choice for $a$ for one parameter may be estimated from data on the other parameters, using a linking model that relates the parameters to each other. Importantly, the FAB confidence intervals and $p$-values have correct frequentist error rates, even if the linking model is incorrect. 
 
 #### Installation

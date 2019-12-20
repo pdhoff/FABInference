@@ -81,7 +81,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="exampleHMM_files/jquery-1.11.3/jquery.min.js"></script><script src="exampleHMM_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>FAB p-values for a hidden Markov model</h1>
@@ -102,122 +102,122 @@
 <a href="#summary" class="anchor"></a>Summary</h2>
 <p>This is a simulation study in which adaptive FAB <span class="math inline">\(p\)</span>-values are constructed using a Gaussian hidden Markov model as a linking model. A binary hidden Markov model is the “true” linking model. This document serves as the replication code for the example in Section 3.4 of the article <a href="https://arxiv.org/abs/1907.12589">“Smaller <span class="math inline">\(p\)</span>-values via indirect information”</a> (Hoff 2019).</p>
 <p>Here are some <span class="math inline">\(p\)</span>-value functions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#### ---- p-value functions
-
-## -- FAB p-values
-pFAB&lt;-function(y,sigma,<span class="dt">etheta=</span><span class="dv">0</span>,<span class="dt">vtheta=</span><span class="dv">1</span>){
-  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>( (y<span class="dv">+2</span>*etheta*sigma^<span class="dv">2</span>/vtheta)/sigma ) -<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(-y/sigma) ))
-}
-
-## -- UMPU p-values
-pUMPU&lt;-function(y,sigma){
-  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>*<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(y)/sigma ))
-}
-
-## -- BH FDR control procedure
-rejectBH&lt;-function(pvals,<span class="dt">fdr=</span>.<span class="dv">1</span>){
-  pc&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(pvals),fdr*(<span class="dv">1</span>:<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(pvals))/<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(pvals))
-  nd&lt;-<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="kw"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(pc[,<span class="dv">1</span>]&lt;pc[,<span class="dv">2</span>])) ) )
-  <span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(pvals)[<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">1</span>,nd,<span class="dt">length=</span>nd)]
-}</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#### ---- p-value functions</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">## -- FAB p-values</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>pFAB&lt;-<span class="cf">function</span>(y,sigma,<span class="dt">etheta=</span><span class="dv">0</span>,<span class="dt">vtheta=</span><span class="dv">1</span>){</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>( (y<span class="op">+</span><span class="dv">2</span><span class="op">*</span>etheta<span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span><span class="op">/</span>vtheta)<span class="op">/</span>sigma ) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(<span class="op">-</span>y<span class="op">/</span>sigma) ))</span>
+<span id="cb1-6"><a href="#cb1-6"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">## -- UMPU p-values</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>pUMPU&lt;-<span class="cf">function</span>(y,sigma){</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span><span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span>(<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(y)<span class="op">/</span>sigma ))</span>
+<span id="cb1-11"><a href="#cb1-11"></a>}</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">## -- BH FDR control procedure</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>rejectBH&lt;-<span class="cf">function</span>(pvals,<span class="dt">fdr=</span>.<span class="dv">1</span>){</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  pc&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(pvals),fdr<span class="op">*</span>(<span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(pvals))<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(pvals))</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  nd&lt;-<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="kw"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(pc[,<span class="dv">1</span>]<span class="op">&lt;</span>pc[,<span class="dv">2</span>])) ) )</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(pvals)[<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="dv">1</span>,nd,<span class="dt">length=</span>nd)]</span>
+<span id="cb1-18"><a href="#cb1-18"></a>}</span></code></pre></div>
 <p>Here is a function that estimates the parameters in the linking model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## -- mle from Gaussian hidden Markov model 
-mleGHMM&lt;-function(y){
-  <span class="kw"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>( fit&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/arima.html">arima</a></span>(y,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)) )
-
-  ## TSA4 page 98
-  phi&lt;-fit$coef[<span class="dv">1</span>] ; theta&lt;-fit$coef[<span class="dv">2</span>] ; mu&lt;-fit$coef[<span class="dv">3</span>]
-  sw2&lt;-fit$sigma2
-
-  v&lt;-sw2*(<span class="dv">1+2</span>*theta*phi+theta^<span class="dv">2</span>)/(<span class="dv">1</span>-phi^<span class="dv">2</span>)
-  w&lt;-(<span class="dv">1</span>+theta*phi)*(theta+phi)/( phi*(<span class="dv">1+2</span>*theta*phi+theta^<span class="dv">2</span>)  )
-  rho&lt;-phi
-
-  sigma2&lt;-v*(<span class="dv">1</span>-w)
-  psi2&lt;-v*w
-
-  x&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(sigma2,mu,psi2,rho)
-  <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(x)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sigma2"</span>,<span class="st">"mu"</span>,<span class="st">"psi2"</span>,<span class="st">"rho"</span>)
-
-  gam&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(x[<span class="dv">2</span>]*(<span class="dv">1</span>-x[<span class="dv">4</span>]),x[<span class="dv">4</span>],<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(x[<span class="dv">3</span>]*(<span class="dv">1</span>-x[<span class="dv">4</span>]^<span class="dv">2</span>)),<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(x[<span class="dv">1</span>]))
-  <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(gam)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"beta0"</span>,<span class="st">"beta1"</span>,<span class="st">"tau"</span>,<span class="st">"sigma"</span>)
-  gam
-}</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## -- mle from Gaussian hidden Markov model </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>mleGHMM&lt;-<span class="cf">function</span>(y){</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="kw"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>( fit&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/arima.html">arima</a></span>(y,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)) )</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="co">## TSA4 page 98</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  phi&lt;-fit<span class="op">$</span>coef[<span class="dv">1</span>] ; theta&lt;-fit<span class="op">$</span>coef[<span class="dv">2</span>] ; mu&lt;-fit<span class="op">$</span>coef[<span class="dv">3</span>]</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  sw2&lt;-fit<span class="op">$</span>sigma2</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  v&lt;-sw2<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>theta<span class="op">*</span>phi<span class="op">+</span>theta<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>phi<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  w&lt;-(<span class="dv">1</span><span class="op">+</span>theta<span class="op">*</span>phi)<span class="op">*</span>(theta<span class="op">+</span>phi)<span class="op">/</span>( phi<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>theta<span class="op">*</span>phi<span class="op">+</span>theta<span class="op">^</span><span class="dv">2</span>)  )</span>
+<span id="cb2-11"><a href="#cb2-11"></a>  rho&lt;-phi</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  sigma2&lt;-v<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>w)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>  psi2&lt;-v<span class="op">*</span>w</span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a>  x&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(sigma2,mu,psi2,rho)</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(x)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"sigma2"</span>,<span class="st">"mu"</span>,<span class="st">"psi2"</span>,<span class="st">"rho"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a>  gam&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(x[<span class="dv">2</span>]<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x[<span class="dv">4</span>]),x[<span class="dv">4</span>],<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(x[<span class="dv">3</span>]<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x[<span class="dv">4</span>]<span class="op">^</span><span class="dv">2</span>)),<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(x[<span class="dv">1</span>]))</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(gam)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"beta0"</span>,<span class="st">"beta1"</span>,<span class="st">"tau"</span>,<span class="st">"sigma"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  gam</span>
+<span id="cb2-22"><a href="#cb2-22"></a>}</span></code></pre></div>
 <p>Here is a function that computes an estimated conditional expectation and variance for the mean at location <span class="math inline">\(j\)</span> given the data at the other locations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## -- function to find conditional mean under linking spatial regression model 
-cdistGHMM&lt;-function(beta0,beta1,tau,sigma,r){
-  w&lt;-<span class="dv">2</span>*r<span class="dv">+1</span>
-  d&lt;-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/outer.html">outer</a></span>(<span class="dv">1</span>:w,<span class="dv">1</span>:w,<span class="st">"-"</span>))
-  C&lt;-(beta1^d)*tau^<span class="dv">2</span>/(<span class="dv">1</span>-beta1^<span class="dv">2</span>)
-  iC&lt;-<span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(C)
-  G&lt;-<span class="kw"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(w)[-(r<span class="dv">+1</span>),]
-  V&lt;-<span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>( iC+<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(G)%*%G/sigma^<span class="dv">2</span> )
-  b0&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(V%*%( iC%*%(<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(beta0/(<span class="dv">1</span>-beta1),w)   ) ))[r<span class="dv">+1</span>]
-  b1&lt;-(V%*%<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(G)%*%G)[r<span class="dv">+1</span>,]/sigma^<span class="dv">2</span>
-
-  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">b0=</span>b0,<span class="dt">b1=</span>b1,<span class="dt">vtheta=</span>V[r<span class="dv">+1</span>,r<span class="dv">+1</span>])
-}</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## -- function to find conditional mean under linking spatial regression model </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>cdistGHMM&lt;-<span class="cf">function</span>(beta0,beta1,tau,sigma,r){</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  w&lt;-<span class="dv">2</span><span class="op">*</span>r<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  d&lt;-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/outer.html">outer</a></span>(<span class="dv">1</span><span class="op">:</span>w,<span class="dv">1</span><span class="op">:</span>w,<span class="st">"-"</span>))</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  C&lt;-(beta1<span class="op">^</span>d)<span class="op">*</span>tau<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>beta1<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  iC&lt;-<span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>(C)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  G&lt;-<span class="kw"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(w)[<span class="op">-</span>(r<span class="op">+</span><span class="dv">1</span>),]</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  V&lt;-<span class="kw"><a href="https://rdrr.io/r/base/solve.html">solve</a></span>( iC<span class="op">+</span><span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(G)<span class="op">%*%</span>G<span class="op">/</span>sigma<span class="op">^</span><span class="dv">2</span> )</span>
+<span id="cb3-9"><a href="#cb3-9"></a>  b0&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(V<span class="op">%*%</span>( iC<span class="op">%*%</span>(<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(beta0<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>beta1),w)   ) ))[r<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb3-10"><a href="#cb3-10"></a>  b1&lt;-(V<span class="op">%*%</span><span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(G)<span class="op">%*%</span>G)[r<span class="op">+</span><span class="dv">1</span>,]<span class="op">/</span>sigma<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">b0=</span>b0,<span class="dt">b1=</span>b1,<span class="dt">vtheta=</span>V[r<span class="op">+</span><span class="dv">1</span>,r<span class="op">+</span><span class="dv">1</span>])</span>
+<span id="cb3-13"><a href="#cb3-13"></a>}</span></code></pre></div>
 <p>Here is the simulation study:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">#### ---- HMM parameters 
-TP&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">975</span>,.<span class="dv">025</span>,.<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">01</span>,.<span class="dv">99</span>,.<span class="dv">01</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,.<span class="dv">025</span>,.<span class="dv">975</span>))
-sigma&lt;-<span class="dv">1</span>
-
-
-#### ---- other parameters 
-p&lt;-<span class="dv">1000</span>
-fdr&lt;-.<span class="dv">2</span>
-r&lt;-<span class="dv">50</span>
-
-
-#### ---- simulation study
-EFAB&lt;-XFAB&lt;-UMPU&lt;-pXNULL&lt;-<span class="ot">NULL</span>
-
-for(s in <span class="dv">1</span>:<span class="dv">100</span>){
-
-  #### ---- generate data
-  <span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(s) 
-  theta&lt;-<span class="dv">0</span>
-  for(j in <span class="dv">2</span>:p){theta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(theta,<span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">1</span>,<span class="dt">prob=</span>TP[theta[j<span class="dv">-1</span>]+<span class="dv">2</span>,])) } 
-  y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p,theta,sigma)
-
-  #### ---- UMPU p-values 
-  pU&lt;-<span class="kw">pUMPU</span>(y,sigma)
-  dU&lt;-<span class="kw">rejectBH</span>(pU,fdr) 
-  UMPU&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(UMPU,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span>:p,dU)]==<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dU]==<span class="dv">0</span>),
-                      <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span>:p,dU)]!=<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dU]!=<span class="dv">0</span>) ) )
-
-  #### ---- obtain eBayes means using single estimate of HMM params
-  hmm&lt;-<span class="kw">mleGHMM</span>(y)
-  pripar&lt;-<span class="kw">cdistGHMM</span>(hmm[<span class="dv">1</span>],hmm[<span class="dv">2</span>],hmm[<span class="dv">3</span>],hmm[<span class="dv">4</span>],r) 
-  etheta&lt;-<span class="ot">NULL</span>
-  for(i in <span class="dv">1</span>:p){
-    ii&lt;-<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(i-r,i+r) ; ii[ii&lt;<span class="dv">1</span>]&lt;-<span class="dv">1</span> ; ii[ii&gt;p]&lt;-p
-    etheta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(etheta, pripar$b0 +<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(pripar$b1*y[ii])  )
-  }
-  pX&lt;-<span class="kw">pFAB</span>(y,sigma,etheta,pripar$vtheta)
-  dX&lt;-<span class="kw">rejectBH</span>(pX,fdr)
-  XFAB&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(XFAB,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span>:p,dX)]==<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dX]==<span class="dv">0</span>),
-                      <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span>:p,dX)]!=<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dX]!=<span class="dv">0</span>) ) ) 
-  pXNULL&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pXNULL,pX[theta==<span class="dv">0</span>] )
-
-
-  #### ----- exact FAB p-values
-  mstheta&lt;-<span class="ot">NULL</span>
-  for(i in <span class="dv">1</span>:p){ 
-    ymi&lt;-<span class="kw"><a href="https://rdrr.io/r/base/replace.html">replace</a></span>(y,i,<span class="ot">NA</span>)  
-    if(i==<span class="dv">1</span>){ ymi&lt;-ymi[-<span class="dv">1</span>] } 
-    if(i==p){ ymi&lt;-ymi[-p] } 
-    hmm&lt;-<span class="kw">mleGHMM</span>(ymi) 
-    pripar&lt;-<span class="kw">cdistGHMM</span>(hmm[<span class="dv">1</span>],hmm[<span class="dv">2</span>],hmm[<span class="dv">3</span>],hmm[<span class="dv">4</span>],r)
-    ii&lt;-<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(i-r,i+r) ; ii[ii&lt;<span class="dv">1</span>]&lt;-<span class="dv">1</span> ; ii[ii&gt;p]&lt;-p 
-    mstheta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(mstheta,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pripar$b0 +<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(pripar$b1*y[ii]),pripar$vtheta ))
-  }
-  pF&lt;-<span class="kw">pFAB</span>(y,sigma,mstheta[,<span class="dv">1</span>],mstheta[,<span class="dv">2</span>])
-  dF&lt;-<span class="kw">rejectBH</span>(pF,fdr)
-  EFAB&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(EFAB,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span>:p,dF)]==<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dF]==<span class="dv">0</span>), 
-                      <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span>:p,dF)]!=<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dF]!=<span class="dv">0</span>) )  )
-  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(s,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  
-}</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#### ---- HMM parameters </span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>TP&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">975</span>,.<span class="dv">025</span>,.<span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(.<span class="dv">01</span>,.<span class="dv">99</span>,.<span class="dv">01</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,.<span class="dv">025</span>,.<span class="dv">975</span>))</span>
+<span id="cb4-3"><a href="#cb4-3"></a>sigma&lt;-<span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#### ---- other parameters </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>p&lt;-<span class="dv">1000</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>fdr&lt;-.<span class="dv">2</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>r&lt;-<span class="dv">50</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#### ---- simulation study</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a>EFAB&lt;-XFAB&lt;-UMPU&lt;-pXNULL&lt;-<span class="ot">NULL</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="cf">for</span>(s <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>){</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="co">#### ---- generate data</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>  <span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(s) </span>
+<span id="cb4-19"><a href="#cb4-19"></a>  theta&lt;-<span class="dv">0</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>p){theta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(theta,<span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">1</span>,<span class="dt">prob=</span>TP[theta[j<span class="dv">-1</span>]<span class="op">+</span><span class="dv">2</span>,])) } </span>
+<span id="cb4-21"><a href="#cb4-21"></a>  y&lt;-<span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(p,theta,sigma)</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="co">#### ---- UMPU p-values </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a>  pU&lt;-<span class="kw">pUMPU</span>(y,sigma)</span>
+<span id="cb4-25"><a href="#cb4-25"></a>  dU&lt;-<span class="kw">rejectBH</span>(pU,fdr) </span>
+<span id="cb4-26"><a href="#cb4-26"></a>  UMPU&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(UMPU,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span><span class="op">:</span>p,dU)]<span class="op">==</span><span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dU]<span class="op">==</span><span class="dv">0</span>),</span>
+<span id="cb4-27"><a href="#cb4-27"></a>                      <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span><span class="op">:</span>p,dU)]<span class="op">!=</span><span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dU]<span class="op">!=</span><span class="dv">0</span>) ) )</span>
+<span id="cb4-28"><a href="#cb4-28"></a></span>
+<span id="cb4-29"><a href="#cb4-29"></a>  <span class="co">#### ---- obtain eBayes means using single estimate of HMM params</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a>  hmm&lt;-<span class="kw">mleGHMM</span>(y)</span>
+<span id="cb4-31"><a href="#cb4-31"></a>  pripar&lt;-<span class="kw">cdistGHMM</span>(hmm[<span class="dv">1</span>],hmm[<span class="dv">2</span>],hmm[<span class="dv">3</span>],hmm[<span class="dv">4</span>],r) </span>
+<span id="cb4-32"><a href="#cb4-32"></a>  etheta&lt;-<span class="ot">NULL</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p){</span>
+<span id="cb4-34"><a href="#cb4-34"></a>    ii&lt;-<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(i<span class="op">-</span>r,i<span class="op">+</span>r) ; ii[ii<span class="op">&lt;</span><span class="dv">1</span>]&lt;-<span class="dv">1</span> ; ii[ii<span class="op">&gt;</span>p]&lt;-p</span>
+<span id="cb4-35"><a href="#cb4-35"></a>    etheta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(etheta, pripar<span class="op">$</span>b0 <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(pripar<span class="op">$</span>b1<span class="op">*</span>y[ii])  )</span>
+<span id="cb4-36"><a href="#cb4-36"></a>  }</span>
+<span id="cb4-37"><a href="#cb4-37"></a>  pX&lt;-<span class="kw">pFAB</span>(y,sigma,etheta,pripar<span class="op">$</span>vtheta)</span>
+<span id="cb4-38"><a href="#cb4-38"></a>  dX&lt;-<span class="kw">rejectBH</span>(pX,fdr)</span>
+<span id="cb4-39"><a href="#cb4-39"></a>  XFAB&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(XFAB,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span><span class="op">:</span>p,dX)]<span class="op">==</span><span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dX]<span class="op">==</span><span class="dv">0</span>),</span>
+<span id="cb4-40"><a href="#cb4-40"></a>                      <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span><span class="op">:</span>p,dX)]<span class="op">!=</span><span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dX]<span class="op">!=</span><span class="dv">0</span>) ) ) </span>
+<span id="cb4-41"><a href="#cb4-41"></a>  pXNULL&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pXNULL,pX[theta<span class="op">==</span><span class="dv">0</span>] )</span>
+<span id="cb4-42"><a href="#cb4-42"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>  <span class="co">#### ----- exact FAB p-values</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a>  mstheta&lt;-<span class="ot">NULL</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p){ </span>
+<span id="cb4-47"><a href="#cb4-47"></a>    ymi&lt;-<span class="kw"><a href="https://rdrr.io/r/base/replace.html">replace</a></span>(y,i,<span class="ot">NA</span>)  </span>
+<span id="cb4-48"><a href="#cb4-48"></a>    <span class="cf">if</span>(i<span class="op">==</span><span class="dv">1</span>){ ymi&lt;-ymi[<span class="op">-</span><span class="dv">1</span>] } </span>
+<span id="cb4-49"><a href="#cb4-49"></a>    <span class="cf">if</span>(i<span class="op">==</span>p){ ymi&lt;-ymi[<span class="op">-</span>p] } </span>
+<span id="cb4-50"><a href="#cb4-50"></a>    hmm&lt;-<span class="kw">mleGHMM</span>(ymi) </span>
+<span id="cb4-51"><a href="#cb4-51"></a>    pripar&lt;-<span class="kw">cdistGHMM</span>(hmm[<span class="dv">1</span>],hmm[<span class="dv">2</span>],hmm[<span class="dv">3</span>],hmm[<span class="dv">4</span>],r)</span>
+<span id="cb4-52"><a href="#cb4-52"></a>    ii&lt;-<span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(i<span class="op">-</span>r,i<span class="op">+</span>r) ; ii[ii<span class="op">&lt;</span><span class="dv">1</span>]&lt;-<span class="dv">1</span> ; ii[ii<span class="op">&gt;</span>p]&lt;-p </span>
+<span id="cb4-53"><a href="#cb4-53"></a>    mstheta&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(mstheta,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pripar<span class="op">$</span>b0 <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(pripar<span class="op">$</span>b1<span class="op">*</span>y[ii]),pripar<span class="op">$</span>vtheta ))</span>
+<span id="cb4-54"><a href="#cb4-54"></a>  }</span>
+<span id="cb4-55"><a href="#cb4-55"></a>  pF&lt;-<span class="kw">pFAB</span>(y,sigma,mstheta[,<span class="dv">1</span>],mstheta[,<span class="dv">2</span>])</span>
+<span id="cb4-56"><a href="#cb4-56"></a>  dF&lt;-<span class="kw">rejectBH</span>(pF,fdr)</span>
+<span id="cb4-57"><a href="#cb4-57"></a>  EFAB&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(EFAB,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span><span class="op">:</span>p,dF)]<span class="op">==</span><span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dF]<span class="op">==</span><span class="dv">0</span>), </span>
+<span id="cb4-58"><a href="#cb4-58"></a>                      <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[<span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="dv">1</span><span class="op">:</span>p,dF)]<span class="op">!=</span><span class="dv">0</span>), <span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(theta[dF]<span class="op">!=</span><span class="dv">0</span>) )  )</span>
+<span id="cb4-59"><a href="#cb4-59"></a>  <span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(s,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)  </span>
+<span id="cb4-60"><a href="#cb4-60"></a>}</span></code></pre></div>
 <pre><code>## 1 
 ## 2 
 ## 3 
@@ -319,35 +319,35 @@ for(s in <span class="dv">1</span>:<span class="dv">100</span>){
 ## 99 
 ## 100</code></pre>
 <p>Save results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(EFAB)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(XFAB)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(UMPU)&lt;-
-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"D0E0"</span>,<span class="st">"D1E0"</span>,<span class="st">"D0E1"</span>,<span class="st">"D1E1"</span>) 
-
-<span class="kw"><a href="https://rdrr.io/r/base/save.html">save</a></span>(EFAB,XFAB,UMPU,pXNULL,<span class="dt">file=</span><span class="st">"resultsHMM.RData"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(EFAB)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(XFAB)&lt;-<span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(UMPU)&lt;-</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"D0E0"</span>,<span class="st">"D1E0"</span>,<span class="st">"D0E1"</span>,<span class="st">"D1E1"</span>) </span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw"><a href="https://rdrr.io/r/base/save.html">save</a></span>(EFAB,XFAB,UMPU,pXNULL,<span class="dt">file=</span><span class="st">"resultsHMM.RData"</span>)</span></code></pre></div>
 <p>Results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## FDP
-Ufdp&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(  UMPU[,<span class="dv">2</span>]/(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(UMPU[,<span class="dv">4</span>]+UMPU[,<span class="dv">2</span>],<span class="dv">1</span>) ))
-Ffdp&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(  EFAB[,<span class="dv">2</span>]/(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(EFAB[,<span class="dv">4</span>]+EFAB[,<span class="dv">2</span>],<span class="dv">1</span>) ))
-Xfdp&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(  XFAB[,<span class="dv">2</span>]/(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(XFAB[,<span class="dv">4</span>]+XFAB[,<span class="dv">2</span>],<span class="dv">1</span>) ))
-
-## Proportion of discoveries made - power - prob disc given true disc
-EPOW&lt;-EFAB[,<span class="dv">4</span>]/<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="dv">1</span>,EFAB[,<span class="dv">3</span>]+EFAB[,<span class="dv">4</span>])
-XPOW&lt;-XFAB[,<span class="dv">4</span>]/<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="dv">1</span>,XFAB[,<span class="dv">3</span>]+XFAB[,<span class="dv">4</span>])
-UPOW&lt;-UMPU[,<span class="dv">4</span>]/<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="dv">1</span>,UMPU[,<span class="dv">3</span>]+UMPU[,<span class="dv">4</span>])
-
-<span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(UPOW),<span class="dv">3</span>)  </code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## FDP</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>Ufdp&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(  UMPU[,<span class="dv">2</span>]<span class="op">/</span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(UMPU[,<span class="dv">4</span>]<span class="op">+</span>UMPU[,<span class="dv">2</span>],<span class="dv">1</span>) ))</span>
+<span id="cb7-3"><a href="#cb7-3"></a>Ffdp&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(  EFAB[,<span class="dv">2</span>]<span class="op">/</span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(EFAB[,<span class="dv">4</span>]<span class="op">+</span>EFAB[,<span class="dv">2</span>],<span class="dv">1</span>) ))</span>
+<span id="cb7-4"><a href="#cb7-4"></a>Xfdp&lt;-<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(  XFAB[,<span class="dv">2</span>]<span class="op">/</span>(<span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(XFAB[,<span class="dv">4</span>]<span class="op">+</span>XFAB[,<span class="dv">2</span>],<span class="dv">1</span>) ))</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">## Proportion of discoveries made - power - prob disc given true disc</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>EPOW&lt;-EFAB[,<span class="dv">4</span>]<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="dv">1</span>,EFAB[,<span class="dv">3</span>]<span class="op">+</span>EFAB[,<span class="dv">4</span>])</span>
+<span id="cb7-8"><a href="#cb7-8"></a>XPOW&lt;-XFAB[,<span class="dv">4</span>]<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="dv">1</span>,XFAB[,<span class="dv">3</span>]<span class="op">+</span>XFAB[,<span class="dv">4</span>])</span>
+<span id="cb7-9"><a href="#cb7-9"></a>UPOW&lt;-UMPU[,<span class="dv">4</span>]<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="dv">1</span>,UMPU[,<span class="dv">3</span>]<span class="op">+</span>UMPU[,<span class="dv">4</span>])</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(UPOW),<span class="dv">3</span>)  </span></code></pre></div>
 <pre><code>## [1] 0.02</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(EPOW),<span class="dv">3</span>)  </code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(EPOW),<span class="dv">3</span>)  </span></code></pre></div>
 <pre><code>## [1] 0.077</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(EPOW)/<span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(UPOW)  </code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(EPOW)<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(UPOW)  </span></code></pre></div>
 <pre><code>## [1] 3.851542</code></pre>
 <p>Plots:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(UPOW,EPOW,<span class="dt">xlab=</span><span class="st">"UMPU proportion true effects discovered"</span>,
-               <span class="dt">ylab=</span><span class="st">"FAB proportion true effects discovered"</span>)
-<span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dv">0</span>,<span class="dv">1</span>)
-
-<span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(pXNULL,<span class="dt">main=</span><span class="st">""</span>,<span class="dt">xlab=</span><span class="st">"approximate null p-value"</span>,<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">prob=</span><span class="ot">TRUE</span>,
-     <span class="dt">col=</span><span class="st">"gray"</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(UPOW,EPOW,<span class="dt">xlab=</span><span class="st">"UMPU proportion true effects discovered"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>               <span class="dt">ylab=</span><span class="st">"FAB proportion true effects discovered"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(pXNULL,<span class="dt">main=</span><span class="st">""</span>,<span class="dt">xlab=</span><span class="st">"approximate null p-value"</span>,<span class="dt">ylab=</span><span class="st">""</span>,<span class="dt">prob=</span><span class="ot">TRUE</span>,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>     <span class="dt">col=</span><span class="st">"gray"</span>)</span></code></pre></div>
 <p><img src="exampleHMM_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
   </div>
