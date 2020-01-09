@@ -156,12 +156,22 @@
 
     <p>a two-dimensional vector of independent sums of squares</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>n</span><span class='kw'>&lt;-</span><span class='fl'>30</span> ; <span class='no'>p</span><span class='kw'>&lt;-</span><span class='fl'>6</span> ; <span class='no'>sigma2</span><span class='kw'>&lt;-</span><span class='fl'>1.5</span>
+<span class='no'>X</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>*<span class='no'>p</span>),<span class='no'>n</span>,<span class='no'>p</span>)
+<span class='no'>y</span><span class='kw'>&lt;-</span><span class='no'>X</span><span class='kw'>%*%</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>6</span>) + <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>sigma2</span>)*<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)
+<span class='no'>ss</span><span class='kw'>&lt;-</span><span class='fu'>rssSplit</span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~ -<span class='fl'>1</span>+<span class='no'>X</span>))
+<span class='no'>df</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substring</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>ss</span>),<span class='kw'>first</span><span class='kw'>=</span><span class='fl'>3</span>))
+<span class='no'>ss</span>/<span class='no'>df</span></div><div class='output co'>#&gt;      df2     df22 
+#&gt; 1.732368 1.335956 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>

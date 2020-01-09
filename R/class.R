@@ -8,8 +8,39 @@
 #' @param ... see \code{summary.lm}
 #'
 #' @details A mod of \code{summary.lm} that shows FAB p-values in table
-#'
+#' 
+#' @return A list of summary statistics of the fitted linear model
+#' 
 #' @import stats
+#' 
+#' @examples
+#'
+#' # n observations, p FAB variables, q=2 control variables 
+#' 
+#' n<-100 ; p<-25 
+#'
+#' # X is design matrix for params of interest
+#' # beta is vector of true parameter values 
+#' # v a variable in the linking model - used to share info across betas
+#' 
+#' v<-rnorm(p) ; beta<-(2 - 2*v + rnorm(p))/3 ; X<-matrix(rnorm(n*p),n,p)/8
+#' 
+#' # control coefficients and variables  
+#' alpha1<-.5 ; alpha2<- -.5
+#' w1<-rnorm(n)/8
+#' w2<-rnorm(n)/8
+#' 
+#' # simulate data 
+#' lp<-1 + alpha1*w1 + alpha2*w2 + X%*%beta 
+#' y<-rnorm(n,lp) 
+#' 
+#' # fit model
+#' fit<-lmFAB(y~w1+w2,X,~v)
+#' 
+#' fit$FABpv
+#' fit$FABci 
+#' summary(fit) # look at p-value column 
+#'
 #' 
 #' @export 
 summary.lmFAB<-function (object, correlation = FALSE, symbolic.cor = FALSE,
@@ -130,6 +161,8 @@ summary.lmFAB<-function (object, correlation = FALSE, symbolic.cor = FALSE,
 #' @param x \code{lmFAB} object 
 #' @param ... see \code{qr.lm}, if you can find it
 #' 
+#' @return qr decomposition for a design matrix 
+#' 
 #' @export
 qr.lmFAB<-function (x, ...)
 {
@@ -149,6 +182,36 @@ qr.lmFAB<-function (x, ...)
 #' @param ... see \code{summary.glm}
 #'
 #' @details A mod of \code{summary.glm} that shows FAB p-values in table
+#'
+#' @return A list of summary statistics of the fitted generalized linear model
+#' 
+#' @examples
+#'
+#' # n observations, p FAB variables, q=2 control variables 
+#' 
+#' n<-100 ; p<-25 
+#'
+#' # X is design matrix for params of interest
+#' # beta is vector of true parameter values 
+#' # v a variable in the linking model - used to share info across betas
+#' 
+#' v<-rnorm(p) ; beta<-(2 - 2*v + rnorm(p))/3 ; X<-matrix(rnorm(n*p),n,p)/8
+#' 
+#' # control coefficients and variables  
+#' alpha1<-.5 ; alpha2<- -.5
+#' w1<-rnorm(n)/8
+#' w2<-rnorm(n)/8
+#' 
+#' # simulate data 
+#' lp<-1 + alpha1*w1 + alpha2*w2 + X%*%beta 
+#' y<-rpois(n,exp(lp))
+#' 
+#' # fit model
+#' fit<-glmFAB(y~w1+w2,X,~v,family=poisson)
+#' 
+#' fit$FABpv
+#' fit$FABci 
+#' summary(fit) # look at p-value column 
 #'
 #' @export 
 summary.glmFAB<-function(object, dispersion = NULL, correlation = FALSE, symbolic.cor = FALSE,

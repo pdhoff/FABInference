@@ -82,10 +82,16 @@ c(thetaL,thetaU)
 #' }
 #' @param alpha level of test
 #'
+#' @return a scalar value giving the optimal tail-area probability
+#' 
 #' @author Peter Hoff 
 #' 
-#' @return a scalar value giving the optimal tail-area probability
-#'
+#' @examples
+#' thetas<-seq(-1,1,length=100)  
+#' s<-NULL 
+#' for(theta in thetas){ s<-c(s,sfabz(theta,list(mu=0,tau2=1,sigma2=1)) ) }  
+#' plot(thetas,s,type="l") 
+#' 
 #' @export
 sfabz<-function(theta,psi,alpha=.05)
 {

@@ -11,6 +11,9 @@
 
 \item{...}{see \code{qr.lm}, if you can find it}
 }
+\value{
+qr decomposition for a design matrix
+}
 \description{
 QR decomposition for lmFAB objects
 }

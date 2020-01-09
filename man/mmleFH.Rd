@@ -29,6 +29,17 @@ a list of parameter estimates including
 Marginal MLEs for the Fay-Herriot random effects model where 
 the covariance matrix for the sampling model is known to scale.
 }
+\examples{
+ 
+n<-30 ; p<-3 
+X<-matrix(rnorm(n*p),n,p)  
+beta<-rnorm(p) 
+theta<-X\%*\%beta + rnorm(n)  
+V<-diag(n) 
+y<-theta+rnorm(n) 
+mmleFH(y,X,V) 
+
+}
 \author{
 Peter Hoff
 }

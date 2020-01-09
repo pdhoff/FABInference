@@ -67,8 +67,12 @@ where $\Phi$ is the standard normal CDF. The FAB confidence interval is a bit mo
 
 
 ```{r,eval=FALSE}
-# Current version on GitHub
-devtools::install_github("pdhoff/FABInference") 
+# Release version on CRAN
+install.packages("FABInference")
+
+
+# Development version on GitHub 
+devtools::install_github("pdhoff/FABInference")  
 ```
 
 

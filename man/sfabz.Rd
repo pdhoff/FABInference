@@ -31,6 +31,13 @@ biased level-alpha test for a normal population with
 known variance, under a specified  prior
 predictive distribution.
 }
+\examples{
+thetas<-seq(-1,1,length=100)  
+s<-NULL 
+for(theta in thetas){ s<-c(s,sfabz(theta,list(mu=0,tau2=1,sigma2=1)) ) }  
+plot(thetas,s,type="l") 
+
+}
 \author{
 Peter Hoff
 }

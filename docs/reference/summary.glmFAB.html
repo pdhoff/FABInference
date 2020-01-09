@@ -162,16 +162,131 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list of summary statistics of the fitted generalized linear model</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A mod of <code>summary.glm</code> that shows FAB p-values in table</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># n observations, p FAB variables, q=2 control variables </span>
+
+<span class='no'>n</span><span class='kw'>&lt;-</span><span class='fl'>100</span> ; <span class='no'>p</span><span class='kw'>&lt;-</span><span class='fl'>25</span>
+
+<span class='co'># X is design matrix for params of interest</span>
+<span class='co'># beta is vector of true parameter values </span>
+<span class='co'># v a variable in the linking model - used to share info across betas</span>
+
+<span class='no'>v</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>p</span>) ; <span class='no'>beta</span><span class='kw'>&lt;-</span>(<span class='fl'>2</span> - <span class='fl'>2</span>*<span class='no'>v</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>p</span>))/<span class='fl'>3</span> ; <span class='no'>X</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>*<span class='no'>p</span>),<span class='no'>n</span>,<span class='no'>p</span>)/<span class='fl'>8</span>
+
+<span class='co'># control coefficients and variables  </span>
+<span class='no'>alpha1</span><span class='kw'>&lt;-</span><span class='fl'>.5</span> ; <span class='no'>alpha2</span><span class='kw'>&lt;-</span> -<span class='fl'>.5</span>
+<span class='no'>w1</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)/<span class='fl'>8</span>
+<span class='no'>w2</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)/<span class='fl'>8</span>
+
+<span class='co'># simulate data </span>
+<span class='no'>lp</span><span class='kw'>&lt;-</span><span class='fl'>1</span> + <span class='no'>alpha1</span>*<span class='no'>w1</span> + <span class='no'>alpha2</span>*<span class='no'>w2</span> + <span class='no'>X</span><span class='kw'>%*%</span><span class='no'>beta</span>
+<span class='no'>y</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='no'>n</span>,<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='no'>lp</span>))
+
+<span class='co'># fit model</span>
+<span class='no'>fit</span><span class='kw'>&lt;-</span><span class='fu'><a href='glmFAB.html'>glmFAB</a></span>(<span class='no'>y</span>~<span class='no'>w1</span>+<span class='no'>w2</span>,<span class='no'>X</span>,~<span class='no'>v</span>,<span class='kw'>family</span><span class='kw'>=</span><span class='no'>poisson</span>)</div><div class='output co'>#&gt; 
+#&gt; Fitting sampling model: -  Fitting sampling model: #  
+#&gt;  Fitting linking models: #------------------------ Fitting linking models: ##----------------------- Fitting linking models: ###---------------------- Fitting linking models: ####--------------------- Fitting linking models: #####-------------------- Fitting linking models: ######------------------- Fitting linking models: #######------------------ Fitting linking models: ########----------------- Fitting linking models: #########---------------- Fitting linking models: ##########--------------- Fitting linking models: ###########-------------- Fitting linking models: ############------------- Fitting linking models: #############------------ Fitting linking models: ##############----------- Fitting linking models: ###############---------- Fitting linking models: ################--------- Fitting linking models: #################-------- Fitting linking models: ##################------- Fitting linking models: ###################------ Fitting linking models: ####################----- Fitting linking models: #####################---- Fitting linking models: ######################--- Fitting linking models: #######################-- Fitting linking models: ########################- Fitting linking models: #########################</div><div class='input'>
+<span class='no'>fit</span>$<span class='no'>FABpv</span></div><div class='output co'>#&gt;          fv1          fv2          fv3          fv4          fv5          fv6 
+#&gt; 3.301144e-02 9.911499e-01 2.861218e-01 3.501581e-01 4.298153e-01 1.294312e-01 
+#&gt;          fv7          fv8          fv9         fv10         fv11         fv12 
+#&gt; 3.484147e-02 2.908584e-02 1.418045e-01 7.705731e-01 4.051792e-03 7.839975e-01 
+#&gt;         fv13         fv14         fv15         fv16         fv17         fv18 
+#&gt; 2.985106e-01 2.235317e-01 1.021301e-03 6.531914e-01 1.272534e-02 1.886381e-03 
+#&gt;         fv19         fv20         fv21         fv22         fv23         fv24 
+#&gt; 2.076070e-03 7.617339e-02 3.158509e-03 8.761060e-05 6.959489e-01 1.838333e-01 
+#&gt;         fv25 
+#&gt; 5.882124e-08 </div><div class='input'><span class='no'>fit</span>$<span class='no'>FABci</span></div><div class='output co'>#&gt;            [,1]        [,2]
+#&gt; fv1   0.1142576  2.05898805
+#&gt; fv2  -1.9878811  0.20317560
+#&gt; fv3  -0.5918953  1.21079061
+#&gt; fv4  -0.7445656  1.19953879
+#&gt; fv5  -0.7867429  0.97627772
+#&gt; fv6  -0.3189098  1.71484591
+#&gt; fv7  -2.4743405 -0.06418161
+#&gt; fv8   0.1421588  2.01724496
+#&gt; fv9  -0.3267647  1.55028486
+#&gt; fv10 -1.2520181  0.48645769
+#&gt; fv11  0.5419691  2.32013537
+#&gt; fv12 -1.3668323  0.48314354
+#&gt; fv13 -0.7377862  1.43663812
+#&gt; fv14 -0.5114647  1.39081652
+#&gt; fv15  0.8010158  2.63237019
+#&gt; fv16 -1.2538535  1.35575830
+#&gt; fv17  0.2787870  1.83506839
+#&gt; fv18  0.7585767  2.75259070
+#&gt; fv19  0.6532015  2.41267292
+#&gt; fv20 -0.1384665  1.99340604
+#&gt; fv21  0.2956332  2.72607958
+#&gt; fv22  1.3294796  3.96144926
+#&gt; fv23 -0.6269868  1.19492796
+#&gt; fv24 -0.5162242  1.76613042
+#&gt; fv25  1.6665975  3.16807513</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit</span>) <span class='co'># look at p-value column </span></div><div class='output co'>#&gt; 
+#&gt; Call:
+#&gt; glm(formula = y ~ . + 0, family = ..1, data = as.data.frame(cbind(W, 
+#&gt;     X)))
+#&gt; 
+#&gt; Deviance Residuals: 
+#&gt;      Min        1Q    Median        3Q       Max  
+#&gt; -2.55395  -0.87686  -0.05881   0.49388   2.00750  
+#&gt; 
+#&gt; Coefficients:
+#&gt;               Estimate Std. Error z value Pr(&gt;|z+bfab|)    
+#&gt; `(Intercept)`  0.94317    0.07717  12.222       &lt; 2e-16 ***
+#&gt; w1             0.83149    0.61437   1.353       0.17593    
+#&gt; w2            -0.74838    0.57911  -1.292       0.19626    
+#&gt; fv1            1.08662    0.59111   1.838       0.03301 *  
+#&gt; fv2           -1.17376    0.49488  -2.372       0.99115    
+#&gt; fv3            0.30945    0.54794   0.565       0.28612    
+#&gt; fv4            0.22745    0.59094   0.385       0.35016    
+#&gt; fv5            0.09477    0.53588   0.177       0.42982    
+#&gt; fv6            0.69797    0.61817   1.129       0.12943    
+#&gt; fv7           -1.29761    0.71535  -1.814       0.03484 *  
+#&gt; fv8            1.07970    0.56994   1.894       0.02909 *  
+#&gt; fv9            0.61176    0.57054   1.072       0.14180    
+#&gt; fv10          -0.38278    0.52842  -0.724       0.77057    
+#&gt; fv11           1.43105    0.54048   2.648       0.00405 ** 
+#&gt; fv12          -0.44184    0.56231  -0.786       0.78400    
+#&gt; fv13           0.34943    0.66093   0.529       0.29851    
+#&gt; fv14           0.43964    0.57823   0.760       0.22353    
+#&gt; fv15           1.71669    0.55665   3.084       0.00102 ** 
+#&gt; fv16          -0.24226    0.61496  -0.394       0.65319    
+#&gt; fv17           1.05693    0.47301   2.234       0.01273 *  
+#&gt; fv18           1.75558    0.60609   2.897       0.00189 ** 
+#&gt; fv19           1.53294    0.53480   2.866       0.00208 ** 
+#&gt; fv20           0.92747    0.64800   1.431       0.07617 .  
+#&gt; fv21           1.70128    0.62299   2.731       0.00316 ** 
+#&gt; fv22           2.75408    0.73397   3.752      8.76e-05 ***
+#&gt; fv23           0.28397    0.55378   0.513       0.69595    
+#&gt; fv24           0.62495    0.69374   0.901       0.18383    
+#&gt; fv25           2.41734    0.45635   5.297      5.88e-08 ***
+#&gt; ---
+#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#&gt; 
+#&gt; (Dispersion parameter for poisson family taken to be 1)
+#&gt; 
+#&gt;     Null deviance: 601.960  on 100  degrees of freedom
+#&gt; Residual deviance:  99.218  on  72  degrees of freedom
+#&gt; AIC: 405.32
+#&gt; 
+#&gt; Number of Fisher Scoring iterations: 5
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

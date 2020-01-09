@@ -162,12 +162,28 @@ the covariance matrix for the sampling model is known</p>
 </ol>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>n</span><span class='kw'>&lt;-</span><span class='fl'>30</span> ; <span class='no'>p</span><span class='kw'>&lt;-</span><span class='fl'>3</span>
+<span class='no'>X</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>*<span class='no'>p</span>),<span class='no'>n</span>,<span class='no'>p</span>)
+<span class='no'>beta</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>p</span>)
+<span class='no'>theta</span><span class='kw'>&lt;-</span><span class='no'>X</span><span class='kw'>%*%</span><span class='no'>beta</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)
+<span class='no'>Sigma</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='no'>n</span>)
+<span class='no'>y</span><span class='kw'>&lt;-</span><span class='no'>theta</span>+<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)
+<span class='fu'>mmleFHP</span>(<span class='no'>y</span>,<span class='no'>X</span>,<span class='no'>Sigma</span>)</div><div class='output co'>#&gt; $beta
+#&gt;        Xd1        Xd2        Xd3 
+#&gt; -0.5169015  0.4703897 -0.9970674 
+#&gt; 
+#&gt; $t2
+#&gt; [1] 0.6564275
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>

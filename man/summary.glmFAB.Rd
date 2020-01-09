@@ -18,9 +18,41 @@
 
 \item{...}{see \code{summary.glm}}
 }
+\value{
+A list of summary statistics of the fitted generalized linear model
+}
 \description{
 \code{summary} method for class \code{glmFAB}
 }
 \details{
 A mod of \code{summary.glm} that shows FAB p-values in table
+}
+\examples{
+
+# n observations, p FAB variables, q=2 control variables 
+
+n<-100 ; p<-25 
+
+# X is design matrix for params of interest
+# beta is vector of true parameter values 
+# v a variable in the linking model - used to share info across betas
+
+v<-rnorm(p) ; beta<-(2 - 2*v + rnorm(p))/3 ; X<-matrix(rnorm(n*p),n,p)/8
+
+# control coefficients and variables  
+alpha1<-.5 ; alpha2<- -.5
+w1<-rnorm(n)/8
+w2<-rnorm(n)/8
+
+# simulate data 
+lp<-1 + alpha1*w1 + alpha2*w2 + X\%*\%beta 
+y<-rpois(n,exp(lp))
+
+# fit model
+fit<-glmFAB(y~w1+w2,X,~v,family=poisson)
+
+fit$FABpv
+fit$FABci 
+summary(fit) # look at p-value column 
+
 }

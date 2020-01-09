@@ -14,6 +14,15 @@
 #' }
 #' 
 #' @author Peter Hoff
+#'
+#' @examples
+#' n<-30 ; p<-3 
+#' X<-matrix(rnorm(n*p),n,p)  
+#' beta<-rnorm(p) 
+#' theta<-X%*%beta + rnorm(n)  
+#' Sigma<-diag(n) 
+#' y<-theta+rnorm(n) 
+#' mmleFHP(y,X,Sigma) 
 #' 
 #' @export
 mmleFHP<-function(y,X,Sigma){

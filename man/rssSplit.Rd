@@ -19,6 +19,15 @@ a two-dimensional vector of independent sums of squares
 \description{
 Split residual sum of squares from normal linear regression
 }
+\examples{
+n<-30 ; p<-6 ; sigma2<-1.5 
+X<-matrix(rnorm(n*p),n,p) 
+y<-X\%*\%rnorm(6) + sqrt(sigma2)*rnorm(n) 
+ss<-rssSplit(lm(y~ -1+X)) 
+df<-as.numeric( substring(names(ss),first=3)) 
+ss/df
+
+}
 \author{
 Peter Hoff
 }
