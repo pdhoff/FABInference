@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAB p-values for small areas • FABInference</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="FAB p-values for small areas">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="FABInference">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -81,10 +81,11 @@
 
       
 
-      </header><script src="exampleFHmodel_files/jquery-1.11.3/jquery.min.js"></script><script src="exampleFHmodel_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
+      </header><script src="exampleFHmodel_files/header-attrs-2.5/header-attrs.js"></script><script src="exampleFHmodel_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="exampleFHmodel_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="exampleFHmodel_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>FAB p-values for small areas</h1>
+      <h1 data-toc-skip>FAB p-values for small areas</h1>
                         <h4 class="author">Peter Hoff</h4>
             
             <h4 class="date">2019-07-23</h4>
@@ -106,9 +107,11 @@
 <h2 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h2>
 <p>The data for this example are from the 2002 Educational Longitudinal Survey, data from which can be obained at <a href="https://nces.ed.gov/surveys/els2002/" class="uri">https://nces.ed.gov/surveys/els2002/</a>. A subset of the data needed to replicate the example is available on my website and can be loaded using the following command:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/connections.html">url</a></span>(<span class="st">"http://www2.stat.duke.edu/~pdh10/Datasets/els.RData"</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html">url</a></span><span class="op">(</span><span class="st">"http://www2.stat.duke.edu/~pdh10/Datasets/els.RData"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 <p>Now take a look at all the variables:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>els[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">els</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span></code></pre></div>
 <pre><code>##    school  flp urbanicity sctrl enrollment region female   ses nateng pared
 ## 1    1011 40.5          1     1          6      1      1 -0.23      1     5
 ## 2    1011 40.5          1     1          6      1      1  0.69      0     5
@@ -143,24 +146,26 @@
 ## 9   0      0
 ## 10  0      0</code></pre>
 <p>Separate out student-level characteristics from school-level characteristics:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>y&lt;-els<span class="op">$</span>rscore </span>
-<span id="cb4-2"><a href="#cb4-2"></a>group&lt;-els<span class="op">$</span>school </span>
-<span id="cb4-3"><a href="#cb4-3"></a>groups&lt;-<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(group))  </span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>W&lt;-<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(els[,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"flp"</span>,<span class="st">"urban"</span>,<span class="st">"rural"</span>,<span class="st">"private"</span>,<span class="st">"catholic"</span>,<span class="st">"rm"</span>,<span class="st">"rs"</span>,<span class="st">"rw"</span>,<span class="st">"enrollment"</span>) ] )  </span>
-<span id="cb4-6"><a href="#cb4-6"></a>X&lt;-<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(W,<span class="dv">2</span>,<span class="cf">function</span>(x){ <span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(x,group,<span class="st">"mean"</span>) } ) </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span><span class="op">&lt;-</span><span class="va">els</span><span class="op">$</span><span class="va">rscore</span> 
+<span class="va">group</span><span class="op">&lt;-</span><span class="va">els</span><span class="op">$</span><span class="va">school</span> 
+<span class="va">groups</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span>  
+
+<span class="va">W</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">els</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"flp"</span>,<span class="st">"urban"</span>,<span class="st">"rural"</span>,<span class="st">"private"</span>,<span class="st">"catholic"</span>,<span class="st">"rm"</span>,<span class="st">"rs"</span>,<span class="st">"rw"</span>,<span class="st">"enrollment"</span><span class="op">)</span> <span class="op">]</span> <span class="op">)</span>  
+<span class="va">X</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">W</span>,<span class="fl">2</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">group</span>,<span class="st">"mean"</span><span class="op">)</span> <span class="op">}</span> <span class="op">)</span> </code></pre></div>
 <p>Here, <code>y</code> is the student-level reading score, and <code>group</code> is the school id for each student. That is, <code>group[i]</code> is the school of student with score <code>y[i]</code>. The matrix <code>X</code> is a matrix of school-level variables, and the matrix <code>W</code> is the same data except with the variable for each school replicated for each student in the school.</p>
 </div>
 <div id="umpu-p-values" class="section level2">
 <h2 class="hasAnchor">
 <a href="#umpu-p-values" class="anchor"></a>UMPU <span class="math inline">\(p\)</span>-values</h2>
 <p>Let <span class="math inline">\(\theta_j\)</span> be the “true” mean test score in school <span class="math inline">\(j\)</span>. The standard two-sided <span class="math inline">\(p\)</span>-value for testing <span class="math inline">\(H_j:\theta_j=50\)</span> is based on the <span class="math inline">\(t\)</span>-statistic <span class="math inline">\(t_j = \sqrt{n_j}( \bar y_j - 50)/\hat\sigma_j\)</span>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>theta0&lt;-<span class="dv">50</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>YBAR&lt;-<span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(y,group,mean) <span class="op">-</span><span class="st"> </span>theta0</span>
-<span id="cb5-3"><a href="#cb5-3"></a>S2&lt;-<span class="kw"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span>(y,group,var)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>N&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(group))</span>
-<span id="cb5-5"><a href="#cb5-5"></a>T&lt;-YBAR<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(S2<span class="op">/</span>N)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>pU&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span><span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span>(<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(T),N<span class="dv">-1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">theta0</span><span class="op">&lt;-</span><span class="fl">50</span>
+<span class="va">YBAR</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">group</span>,<span class="va">mean</span><span class="op">)</span> <span class="op">-</span> <span class="va">theta0</span>
+<span class="va">S2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">y</span>,<span class="va">group</span>,<span class="va">var</span><span class="op">)</span>
+<span class="va">N</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span>
+<span class="cn">T</span><span class="op">&lt;-</span><span class="va">YBAR</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">S2</span><span class="op">/</span><span class="va">N</span><span class="op">)</span>
+<span class="va">pU</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="cn">T</span><span class="op">)</span>,<span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="fh-linking-model" class="section level2">
 <h2 class="hasAnchor">
@@ -168,91 +173,87 @@
 <p>To compute the FAB <span class="math inline">\(p\)</span>-values, we need to first obtain indirect information about each <span class="math inline">\(\theta_j\)</span> using data from schools other than school <span class="math inline">\(j\)</span>. We quantify this indirect information using the following linking model for school-specific means: <span class="math display">\[
  \theta_j =  \beta^\top x_j + \tau \gamma_j 
 \]</span> where <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span> are unknown, <span class="math inline">\(x_j\)</span> is a vector of observed characteristics of school <span class="math inline">\(j\)</span>, and <span class="math inline">\(\gamma_1,\ldots, \gamma_p \sim\)</span> are i.i.d. standard normal random variables. For each school <span class="math inline">\(j\)</span>, we get an estimate of these parameters using the data from schools other than <span class="math inline">\(j\)</span>, along with an estimate of the within school sampling variance <span class="math inline">\(\sigma^2\)</span>. This is done using the <code>lmer</code> command in the <code>lme4</code> package:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lme4)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>BETA&lt;-TAU&lt;-SIGMA&lt;-<span class="ot">NULL</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(groups)){</span>
-<span id="cb6-4"><a href="#cb6-4"></a></span>
-<span id="cb6-5"><a href="#cb6-5"></a>  g&lt;-groups[i]</span>
-<span id="cb6-6"><a href="#cb6-6"></a>  iy&lt;-y[group<span class="op">!=</span>g]</span>
-<span id="cb6-7"><a href="#cb6-7"></a>  iW&lt;-W[group<span class="op">!=</span>g,]</span>
-<span id="cb6-8"><a href="#cb6-8"></a>  igroup&lt;-group[group<span class="op">!=</span>g]</span>
-<span id="cb6-9"><a href="#cb6-9"></a></span>
-<span id="cb6-10"><a href="#cb6-10"></a>  ifit&lt;-<span class="kw"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(iy <span class="op">~</span><span class="st"> </span>iW <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>igroup) )</span>
-<span id="cb6-11"><a href="#cb6-11"></a></span>
-<span id="cb6-12"><a href="#cb6-12"></a>  beta&lt;-<span class="kw"><a href="https://rdrr.io/pkg/lme4/man/fixef.html">fixef</a></span>(ifit)</span>
-<span id="cb6-13"><a href="#cb6-13"></a>  tau&lt;-<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/lme4/man/VarCorr.html">VarCorr</a></span>(ifit)))</span>
-<span id="cb6-14"><a href="#cb6-14"></a>  sigma&lt;-<span class="kw"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/lme4/man/VarCorr.html">VarCorr</a></span>(ifit), <span class="st">"sc"</span>)</span>
-<span id="cb6-15"><a href="#cb6-15"></a></span>
-<span id="cb6-16"><a href="#cb6-16"></a>  BETA&lt;-<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(BETA,beta)</span>
-<span id="cb6-17"><a href="#cb6-17"></a>  TAU&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(TAU,tau)</span>
-<span id="cb6-18"><a href="#cb6-18"></a>  SIGMA&lt;-<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(SIGMA,sigma)</span>
-<span id="cb6-19"><a href="#cb6-19"></a></span>
-<span id="cb6-20"><a href="#cb6-20"></a>  <span class="co">#cat(g,"\n") </span></span>
-<span id="cb6-21"><a href="#cb6-21"></a>}</span></code></pre></div>
-<pre><code>## Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.0311113 (tol = 0.002, component 1)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span>
+<span class="va">BETA</span><span class="op">&lt;-</span><span class="va">TAU</span><span class="op">&lt;-</span><span class="va">SIGMA</span><span class="op">&lt;-</span><span class="cn">NULL</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">groups</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+
+  <span class="va">g</span><span class="op">&lt;-</span><span class="va">groups</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
+  <span class="va">iy</span><span class="op">&lt;-</span><span class="va">y</span><span class="op">[</span><span class="va">group</span><span class="op">!=</span><span class="va">g</span><span class="op">]</span>
+  <span class="va">iW</span><span class="op">&lt;-</span><span class="va">W</span><span class="op">[</span><span class="va">group</span><span class="op">!=</span><span class="va">g</span>,<span class="op">]</span>
+  <span class="va">igroup</span><span class="op">&lt;-</span><span class="va">group</span><span class="op">[</span><span class="va">group</span><span class="op">!=</span><span class="va">g</span><span class="op">]</span>
+
+  <span class="va">ifit</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">iy</span> <span class="op">~</span> <span class="va">iW</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">igroup</span><span class="op">)</span> <span class="op">)</span>
+
+  <span class="va">beta</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/fixef.html">fixef</a></span><span class="op">(</span><span class="va">ifit</span><span class="op">)</span>
+  <span class="va">tau</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/VarCorr.html">VarCorr</a></span><span class="op">(</span><span class="va">ifit</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">sigma</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/VarCorr.html">VarCorr</a></span><span class="op">(</span><span class="va">ifit</span><span class="op">)</span>, <span class="st">"sc"</span><span class="op">)</span>
+
+  <span class="va">BETA</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">BETA</span>,<span class="va">beta</span><span class="op">)</span>
+  <span class="va">TAU</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">TAU</span>,<span class="va">tau</span><span class="op">)</span>
+  <span class="va">SIGMA</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">SIGMA</span>,<span class="va">sigma</span><span class="op">)</span>
+
+  <span class="co">#cat(g,"\n") </span>
+<span class="op">}</span></code></pre></div>
 <p>Note that the <span class="math inline">\(j\)</span>th elements of <code>BETA</code>, <code>TAU</code> and <code>SIGMA</code> are estimated WITHOUT data from school <span class="math inline">\(j\)</span>, and so are independent of the data in school <span class="math inline">\(j\)</span>.</p>
 </div>
 <div id="fab-p-values" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fab-p-values" class="anchor"></a>FAB <span class="math inline">\(p\)</span>-values</h2>
 <p>Based on these linking model parameter estimates we compute an indirect/prior mean <span class="math inline">\(\theta_j\)</span>: Given school-level covariates <span class="math inline">\(x_j\)</span>, the fitted predicted value for <span class="math inline">\(\theta_j\)</span> based on the linking model is <span class="math inline">\(\hat\beta^\top x_j\)</span>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ETHETA&lt;-<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>( BETA<span class="op">*</span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="dv">1</span>,X) ,<span class="dv">1</span>,sum) <span class="op">-</span><span class="st"> </span>theta0</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ETHETA</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span> <span class="va">BETA</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fl">1</span>,<span class="va">X</span><span class="op">)</span> ,<span class="fl">1</span>,<span class="va">sum</span><span class="op">)</span> <span class="op">-</span> <span class="va">theta0</span></code></pre></div>
 <p>Here we have centered things around the hypothesized mean value of <span class="math inline">\(\theta_0=50\)</span>.</p>
 <p>The FAB <span class="math inline">\(p\)</span>-value for school <span class="math inline">\(j\)</span> is <span class="math inline">\(1-|F( T_j + \tilde b_j ) - F(-T_j)|\)</span>, where <span class="math inline">\(T_j\)</span> is the <span class="math inline">\(t\)</span> statistic for school <span class="math inline">\(j\)</span>, <span class="math inline">\(b_j = 2 \tilde \mu (\tilde \sigma/\sqrt{n_j})/\tilde\tau^2\)</span>, and <span class="math inline">\(F\)</span> is the CDF of the appropriate <span class="math inline">\(T\)</span>-distribution.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>pF&lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span><span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>( <span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span>(T<span class="op">+</span><span class="dv">2</span><span class="op">*</span>ETHETA<span class="op">*</span>(SIGMA<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(N))<span class="op">/</span>(TAU<span class="op">^</span><span class="dv">2</span>),N<span class="dv">-1</span>)  <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span>(<span class="op">-</span>T,N<span class="dv">-1</span>) ) )</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pF</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span><span class="op">(</span><span class="cn">T</span><span class="op">+</span><span class="fl">2</span><span class="op">*</span><span class="va">ETHETA</span><span class="op">*</span><span class="op">(</span><span class="va">SIGMA</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">TAU</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,<span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>  <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span><span class="op">(</span><span class="op">-</span><span class="cn">T</span>,<span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span> <span class="op">)</span></code></pre></div>
 <p>Save some results:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>resultsFHmodel&lt;-<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">T=</span>T,<span class="dt">YBAR=</span>YBAR,<span class="dt">S2=</span>S2,<span class="dt">N=</span>N,<span class="dt">pU=</span>pU,<span class="dt">ETHETA=</span>ETHETA,<span class="dt">TAU=</span>TAU,<span class="dt">SIGMA=</span>SIGMA,<span class="dt">pF=</span>pF)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="https://rdrr.io/r/base/save.html">save</a></span>(resultsFHmodel,<span class="dt">file=</span><span class="st">"resultsFHmodel.RData"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resultsFHmodel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>T<span class="op">=</span><span class="cn">T</span>,YBAR<span class="op">=</span><span class="va">YBAR</span>,S2<span class="op">=</span><span class="va">S2</span>,N<span class="op">=</span><span class="va">N</span>,pU<span class="op">=</span><span class="va">pU</span>,ETHETA<span class="op">=</span><span class="va">ETHETA</span>,TAU<span class="op">=</span><span class="va">TAU</span>,SIGMA<span class="op">=</span><span class="va">SIGMA</span>,pF<span class="op">=</span><span class="va">pF</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/save.html">save</a></span><span class="op">(</span><span class="va">resultsFHmodel</span>,file<span class="op">=</span><span class="st">"resultsFHmodel.RData"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="summary-of-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-of-results" class="anchor"></a>Summary of results</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(pF<span class="op">&lt;=</span>.<span class="dv">05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">pF</span><span class="op">&lt;=</span><span class="fl">.05</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 316</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(pU<span class="op">&lt;=</span>.<span class="dv">05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">pU</span><span class="op">&lt;=</span><span class="fl">.05</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 295</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(pF<span class="op">&lt;=</span>pU)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">pF</span><span class="op">&lt;=</span><span class="va">pU</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.7733918</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mgp=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.75</span>,.<span class="dv">75</span>,<span class="dv">0</span>))</span>
-<span id="cb17-2"><a href="#cb17-2"></a></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(resultsFHmodel<span class="op">$</span>ETHETA,resultsFHmodel<span class="op">$</span>YBAR,</span>
-<span id="cb17-4"><a href="#cb17-4"></a>     <span class="dt">xlab=</span><span class="st">"indirect estimate of school-level mean"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5"></a>     <span class="dt">ylab=</span><span class="st">"direct estimate of school-level mean"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">col=</span><span class="st">"gray"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7"></a></span>
-<span id="cb17-8"><a href="#cb17-8"></a>pU&lt;-resultsFHmodel<span class="op">$</span>pU</span>
-<span id="cb17-9"><a href="#cb17-9"></a>pF&lt;-resultsFHmodel<span class="op">$</span>pF</span>
-<span id="cb17-10"><a href="#cb17-10"></a></span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(pU,pF,<span class="dt">xlab=</span><span class="st">"UMPU p-value"</span>,<span class="dt">ylab=</span><span class="st">"FAB p-value"</span>)</span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">col=</span><span class="st">"gray"</span>)</span>
-<span id="cb17-13"><a href="#cb17-13"></a></span>
-<span id="cb17-14"><a href="#cb17-14"></a></span>
-<span id="cb17-15"><a href="#cb17-15"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(pU),<span class="dt">type=</span><span class="st">"l"</span>,<span class="dt">xlim=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">350</span>),<span class="dt">ylim=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,.<span class="dv">06</span>),<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">"pink"</span>,</span>
-<span id="cb17-16"><a href="#cb17-16"></a>          <span class="dt">xlab=</span><span class="st">"rank"</span>,<span class="dt">ylab=</span><span class="st">"p-value"</span>)</span>
-<span id="cb17-17"><a href="#cb17-17"></a><span class="kw"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(pF),<span class="dt">col=</span><span class="st">"lightblue"</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb17-18"><a href="#cb17-18"></a><span class="kw"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="dt">h=</span>.<span class="dv">05</span>,<span class="dt">col=</span><span class="st">"gray"</span>)</span>
-<span id="cb17-19"><a href="#cb17-19"></a><span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="dv">5</span>,.<span class="dv">045</span>,<span class="dt">lwd=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">col=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"pink"</span>,<span class="st">"lightblue"</span>),<span class="dt">legend=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"UMPU"</span>,<span class="st">"FAB"</span>),</span>
-<span id="cb17-20"><a href="#cb17-20"></a>       <span class="dt">bty=</span><span class="st">"n"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>,mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.75</span>,<span class="fl">.75</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">resultsFHmodel</span><span class="op">$</span><span class="va">ETHETA</span>,<span class="va">resultsFHmodel</span><span class="op">$</span><span class="va">YBAR</span>,
+     xlab<span class="op">=</span><span class="st">"indirect estimate of school-level mean"</span>,
+     ylab<span class="op">=</span><span class="st">"direct estimate of school-level mean"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span>
+
+<span class="va">pU</span><span class="op">&lt;-</span><span class="va">resultsFHmodel</span><span class="op">$</span><span class="va">pU</span>
+<span class="va">pF</span><span class="op">&lt;-</span><span class="va">resultsFHmodel</span><span class="op">$</span><span class="va">pF</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pU</span>,<span class="va">pF</span>,xlab<span class="op">=</span><span class="st">"UMPU p-value"</span>,ylab<span class="op">=</span><span class="st">"FAB p-value"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span>
+
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">pU</span><span class="op">)</span>,type<span class="op">=</span><span class="st">"l"</span>,xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">350</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">.06</span><span class="op">)</span>,lwd<span class="op">=</span><span class="fl">2</span>,col<span class="op">=</span><span class="st">"pink"</span>,
+          xlab<span class="op">=</span><span class="st">"rank"</span>,ylab<span class="op">=</span><span class="st">"p-value"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">pF</span><span class="op">)</span>,col<span class="op">=</span><span class="st">"lightblue"</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">.05</span>,col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">.045</span>,lwd<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pink"</span>,<span class="st">"lightblue"</span><span class="op">)</span>,legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UMPU"</span>,<span class="st">"FAB"</span><span class="op">)</span>,
+       bty<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></code></pre></div>
 <p><img src="exampleFHmodel_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#summary">Summary</a></li>
-      <li><a href="#data">Data</a></li>
-      <li><a href="#umpu-p-values">UMPU <span class="math inline">\(p\)</span>-values</a></li>
-      <li><a href="#fh-linking-model">FH linking model</a></li>
-      <li><a href="#fab-p-values">FAB <span class="math inline">\(p\)</span>-values</a></li>
-      <li><a href="#summary-of-results">Summary of results</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -263,7 +264,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

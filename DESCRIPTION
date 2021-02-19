@@ -15,4 +15,4 @@ Maintainer: Peter Hoff <peter.hoff@duke.edu>
 License: GPL-3
 Imports: MASS
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

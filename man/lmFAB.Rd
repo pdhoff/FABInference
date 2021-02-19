@@ -4,11 +4,17 @@
 \alias{lmFAB}
 \title{FAB inference for linear models}
 \usage{
-lmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
-  rssSplit = TRUE, silent = FALSE)
+lmFAB(
+  cformula,
+  FABvars,
+  lformula = NULL,
+  alpha = 0.05,
+  rssSplit = TRUE,
+  silent = FALSE
+)
 }
 \arguments{
-\item{cformula}{formua for the control variables}
+\item{cformula}{formula for the control variables}
 
 \item{FABvars}{matrix of regressors for which to make FAB p-values and CIs}
 

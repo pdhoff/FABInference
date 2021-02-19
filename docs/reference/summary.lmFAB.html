@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Summarizing Linear Model Fits with FAB Inference — summary.lmFAB" />
 <meta property="og:description" content="summary method for class lmFAB" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -134,8 +137,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for lmFAB</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>correlation</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>symbolic.cor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, correlation <span class='op'>=</span> <span class='cn'>FALSE</span>, symbolic.cor <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,28 +171,30 @@
     <pre class="examples"><div class='input'>
 <span class='co'># n observations, p FAB variables, q=2 control variables </span>
 
-<span class='no'>n</span><span class='kw'>&lt;-</span><span class='fl'>100</span> ; <span class='no'>p</span><span class='kw'>&lt;-</span><span class='fl'>25</span>
+<span class='va'>n</span><span class='op'>&lt;-</span><span class='fl'>100</span> ; <span class='va'>p</span><span class='op'>&lt;-</span><span class='fl'>25</span> 
 
 <span class='co'># X is design matrix for params of interest</span>
 <span class='co'># beta is vector of true parameter values </span>
 <span class='co'># v a variable in the linking model - used to share info across betas</span>
 
-<span class='no'>v</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>p</span>) ; <span class='no'>beta</span><span class='kw'>&lt;-</span>(<span class='fl'>2</span> - <span class='fl'>2</span>*<span class='no'>v</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>p</span>))/<span class='fl'>3</span> ; <span class='no'>X</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>*<span class='no'>p</span>),<span class='no'>n</span>,<span class='no'>p</span>)/<span class='fl'>8</span>
+<span class='va'>v</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span> ; <span class='va'>beta</span><span class='op'>&lt;-</span><span class='op'>(</span><span class='fl'>2</span> <span class='op'>-</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>v</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>3</span> ; <span class='va'>X</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>p</span><span class='op'>)</span>,<span class='va'>n</span>,<span class='va'>p</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>8</span>
 
 <span class='co'># control coefficients and variables  </span>
-<span class='no'>alpha1</span><span class='kw'>&lt;-</span><span class='fl'>.5</span> ; <span class='no'>alpha2</span><span class='kw'>&lt;-</span> -<span class='fl'>.5</span>
-<span class='no'>w1</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)/<span class='fl'>8</span>
-<span class='no'>w2</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)/<span class='fl'>8</span>
+<span class='va'>alpha1</span><span class='op'>&lt;-</span><span class='fl'>.5</span> ; <span class='va'>alpha2</span><span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>.5</span>
+<span class='va'>w1</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>8</span>
+<span class='va'>w2</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>8</span>
 
 <span class='co'># simulate data </span>
-<span class='no'>lp</span><span class='kw'>&lt;-</span><span class='fl'>1</span> + <span class='no'>alpha1</span>*<span class='no'>w1</span> + <span class='no'>alpha2</span>*<span class='no'>w2</span> + <span class='no'>X</span><span class='kw'>%*%</span><span class='no'>beta</span>
-<span class='no'>y</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>,<span class='no'>lp</span>)
+<span class='va'>lp</span><span class='op'>&lt;-</span><span class='fl'>1</span> <span class='op'>+</span> <span class='va'>alpha1</span><span class='op'>*</span><span class='va'>w1</span> <span class='op'>+</span> <span class='va'>alpha2</span><span class='op'>*</span><span class='va'>w2</span> <span class='op'>+</span> <span class='va'>X</span><span class='op'>%*%</span><span class='va'>beta</span> 
+<span class='va'>y</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n</span>,<span class='va'>lp</span><span class='op'>)</span> 
 
 <span class='co'># fit model</span>
-<span class='no'>fit</span><span class='kw'>&lt;-</span><span class='fu'><a href='lmFAB.html'>lmFAB</a></span>(<span class='no'>y</span>~<span class='no'>w1</span>+<span class='no'>w2</span>,<span class='no'>X</span>,~<span class='no'>v</span>)</div><div class='output co'>#&gt; 
+<span class='va'>fit</span><span class='op'>&lt;-</span><span class='fu'><a href='lmFAB.html'>lmFAB</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>~</span><span class='va'>w1</span><span class='op'>+</span><span class='va'>w2</span>,<span class='va'>X</span>,<span class='op'>~</span><span class='va'>v</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Fitting sampling model: -  Fitting sampling model: #  
 #&gt;  Fitting linking models: #------------------------ Fitting linking models: ##----------------------- Fitting linking models: ###---------------------- Fitting linking models: ####--------------------- Fitting linking models: #####-------------------- Fitting linking models: ######------------------- Fitting linking models: #######------------------ Fitting linking models: ########----------------- Fitting linking models: #########---------------- Fitting linking models: ##########--------------- Fitting linking models: ###########-------------- Fitting linking models: ############------------- Fitting linking models: #############------------ Fitting linking models: ##############----------- Fitting linking models: ###############---------- Fitting linking models: ################--------- Fitting linking models: #################-------- Fitting linking models: ##################------- Fitting linking models: ###################------ Fitting linking models: ####################----- Fitting linking models: #####################---- Fitting linking models: ######################--- Fitting linking models: #######################-- Fitting linking models: ########################- Fitting linking models: #########################</div><div class='input'>
-<span class='no'>fit</span>$<span class='no'>FABpv</span></div><div class='output co'>#&gt;          fv1          fv2          fv3          fv4          fv5          fv6 
+<span class='va'>fit</span><span class='op'>$</span><span class='va'>FABpv</span>
+</div><div class='output co'>#&gt;          fv1          fv2          fv3          fv4          fv5          fv6 
 #&gt; 0.9648761744 0.1769855064 0.0434419005 0.9509301028 0.1834120523 0.6121279024 
 #&gt;          fv7          fv8          fv9         fv10         fv11         fv12 
 #&gt; 0.3330693409 0.2915015548 0.2480613538 0.0399971632 0.0730291266 0.7874723942 
@@ -199,7 +203,8 @@
 #&gt;         fv19         fv20         fv21         fv22         fv23         fv24 
 #&gt; 0.0179217789 0.1261205120 0.2887643318 0.0867330870 0.2877226520 0.0000607045 
 #&gt;         fv25 
-#&gt; 0.4552802290 </div><div class='input'><span class='no'>fit</span>$<span class='no'>FABci</span></div><div class='output co'>#&gt;             [,1]      [,2]
+#&gt; 0.4552802290 </div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>FABci</span> 
+</div><div class='output co'>#&gt;             [,1]      [,2]
 #&gt; fv1  -2.97671852 0.0675694
 #&gt; fv2  -0.69158116 2.4483476
 #&gt; fv3   0.07068395 3.4542586
@@ -224,7 +229,8 @@
 #&gt; fv22 -0.23781209 2.4765893
 #&gt; fv23 -0.95380126 1.9248873
 #&gt; fv24  1.39424850 5.5476417
-#&gt; fv25 -1.32338583 1.5152253</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit</span>) <span class='co'># look at p-value column </span></div><div class='output co'>#&gt; 
+#&gt; fv25 -1.32338583 1.5152253</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span> <span class='co'># look at p-value column </span>
+</div><div class='output co'>#&gt; 
 #&gt; Call:
 #&gt; lm(formula = y ~ . + 0, data = as.data.frame(cbind(W, X)))
 #&gt; 
@@ -273,14 +279,9 @@
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -291,7 +292,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

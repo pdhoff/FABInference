@@ -79,13 +79,16 @@ devtools::install_github("pdhoff/FABInference")
 #### Documentation and citation
 
 
-"Smaller p-values via indirect information". P.D. Hoff.  [arXiv:1907.12589](https://arxiv.org/abs/1907.12589) 
+"Smaller p-values via indirect information". P.D. Hoff.  [arXiv:1907.12589](https://arxiv.org/abs/1907.12589) Journal of the American Statistical Association, to appear. 
+
+"Smaller p-values in genomics studies using distilled historical information".  [arXiv:2004.07887](https://arxiv.org/abs/2004.07887) 
+J.G. Bryan and P.D. Hoff. Biostatistics, to appear. 
 
 "Exact adaptive confidence intervals for small areas". K. Burris and P.D. Hoff. 
-[arXiv:1809.09159](https://arxiv.org/abs/1809.09159) Journal of Survey Statistics and Methodology.
+[arXiv:1809.09159](https://arxiv.org/abs/1809.09159) Journal of Survey Statistics and Methodology, 8(2):206–230, 2020.
 
 "Exact adaptive confidence intervals for linear regression coefficients". 
-P.D. Hoff and C. Yu. [arXiv:1705.08331](https://arxiv.org/abs/1705.08331) Electron. J. Stat., 13(1):94–119, 2019. 
+P.D. Hoff and C. Yu. [arXiv:1705.08331](https://arxiv.org/abs/1705.08331) Electronic Journal of Statistics, 13(1):94–119, 2019. 
 
 "Adaptive multigroup confidence intervals with constant coverage". 
 [arXiv:1612.08287](https://arxiv.org/abs/1612.08287) C. Yu and P.D. Hoff. Biometrika, 105(2):319–335, 2018. 

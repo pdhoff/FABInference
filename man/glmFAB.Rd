@@ -4,15 +4,14 @@
 \alias{glmFAB}
 \title{FAB inference for generalized linear models}
 \usage{
-glmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05,
-  silent = FALSE, ...)
+glmFAB(cformula, FABvars, lformula = NULL, alpha = 0.05, silent = FALSE, ...)
 }
 \arguments{
-\item{cformula}{formua for the control variables}
+\item{cformula}{formula for the control variables}
 
 \item{FABvars}{matrix of regressors for which to make FAB p-values and CIs}
 
-\item{lformula}{formula for the lining model (just specify right-hand side)}
+\item{lformula}{formula for the linking model (just specify right-hand side)}
 
 \item{alpha}{error rate for CIs (1-alpha CIs will be constructed)}
 

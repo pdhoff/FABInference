@@ -4,8 +4,7 @@
 \alias{summary.lmFAB}
 \title{Summarizing Linear Model Fits with FAB Inference}
 \usage{
-\method{summary}{lmFAB}(object, correlation = FALSE,
-  symbolic.cor = FALSE, ...)
+\method{summary}{lmFAB}(object, correlation = FALSE, symbolic.cor = FALSE, ...)
 }
 \arguments{
 \item{object}{an object of class \code{lmFAB}}

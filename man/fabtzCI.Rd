@@ -4,8 +4,7 @@
 \alias{fabtzCI}
 \title{z-optimal FAB t-interval}
 \usage{
-fabtzCI(y, s, dof, alpha = 0.05, psi = list(mu = 0, tau2 = 1e+05,
-  sigma2 = 1))
+fabtzCI(y, s, dof, alpha = 0.05, psi = list(mu = 0, tau2 = 1e+05, sigma2 = 1))
 }
 \arguments{
 \item{y}{a numeric scalar, a normally distributed statistic}

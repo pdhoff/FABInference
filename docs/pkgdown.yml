@@ -1,10 +1,11 @@
-pandoc: '2.9'
-pkgdown: 1.4.1.9000
-pkgdown_sha: 134033d9d744c548c6fbe297bc0fbd1a2f498e83
+pandoc: 2.9.2.1
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles:
   exampleFHmodel: exampleFHmodel.html
   exampleHMM: exampleHMM.html
   exampleInteraction: exampleInteraction.html
   exampleLogistic: exampleLogistic.html
   simstudy: simstudy.html
+last_built: 2021-02-19T00:11Z
 

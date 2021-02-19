@@ -3,9 +3,9 @@
 #' @description asymptotic FAB p-values and confidence intervals for parameters
 #' in generalized linear regression models  
 #' 
-#' @param cformula formua for the control variables
+#' @param cformula formula for the control variables
 #' @param FABvars  matrix of regressors for which to make FAB p-values and CIs
-#' @param lformula formula for the lining model (just specify right-hand side)
+#' @param lformula formula for the linking model (just specify right-hand side)
 #' @param alpha error rate for CIs (1-alpha CIs will be constructed) 
 #' @param silent show progress (TRUE) or not (FALSE) 
 #' @param ... additional arguments to be passed to \code{glm} 

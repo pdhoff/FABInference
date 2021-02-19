@@ -4,8 +4,13 @@
 \alias{summary.glmFAB}
 \title{Summarizing Generalized Linear Model Fits with FAB Inference}
 \usage{
-\method{summary}{glmFAB}(object, dispersion = NULL,
-  correlation = FALSE, symbolic.cor = FALSE, ...)
+\method{summary}{glmFAB}(
+  object,
+  dispersion = NULL,
+  correlation = FALSE,
+  symbolic.cor = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{an object of class \code{glmFAB}}
